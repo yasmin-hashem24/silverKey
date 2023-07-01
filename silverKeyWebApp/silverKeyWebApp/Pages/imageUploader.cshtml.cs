@@ -58,9 +58,9 @@ namespace silverKeyWebApp.Pages
 
            // myImage.imagePath = imagePath;
 
-            string json = JsonConvert.SerializeObject(myImage);
+            string json = JsonConvert.SerializeObject(myImage, Formatting.Indented);
             string filePath = Path.Combine(_env.ContentRootPath, "file.json");
-            System.IO.File.WriteAllText(filePath, json);
+            System.IO.File.AppendAllText(filePath, json);
 
             string imageUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/images/{fileName}";
             return RedirectToPage("/picture", new { title = imageTitle, image = imageUrl, imageId = imageIde });
