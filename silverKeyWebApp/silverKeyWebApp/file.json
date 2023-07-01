@@ -31,4 +31,21 @@
     "Name": "imageFile",
     "FileName": "bluedots.jpg"
   }
+}{
+  "imageTitle": "Cat",
+  "image": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"cat.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"cat.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 60174,
+    "Name": "imageFile",
+    "FileName": "cat.jpg"
+  }
 }
