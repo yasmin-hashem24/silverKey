@@ -1,0 +1,49 @@
+﻿@page
+@model silverKeyWebApp.Pages.pictureModel
+@inject IUrlHelper UrlHelper
+@{
+}
+<h1>Display page</h1>
+
+<div class="content">
+
+<label for="titleOfImage">Image title:</label>
+<output id="titleOfImage">@Model.title</output>
+
+<label for="imageFile">Image:</label>
+<img src="@UrlHelper.Content(Model.image)" alt="@Model.title" />
+</div>
+
+<style>
+  body {
+    background-image: linear-gradient(to bottom, #000000, #1d1d1d);
+    background-size: cover;
+  }
+
+  .content {
+    display: block;
+    padding: 10px 20px;
+    background-color: #08081e;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+  }
+
+  h1 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #722828;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+</style>

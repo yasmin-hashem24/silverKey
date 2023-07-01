@@ -1,0 +1,71 @@
+﻿@page
+@model silverKeyWebApp.Pages.imageUploaderModel
+@{
+}
+
+<h1>Image uploader form</h1>
+
+<form method="post" enctype="multipart/form-data">
+
+  <div class="content">
+    <label for="titleOfImage">Enter image title:</label>
+    <input type="text" id="titleOfImage" name="titleOfImage" required>
+
+    <label for="imageFile">Choose an image file:</label>
+    <input type="file" id="imageFile" name="imageFile" accept="image/jpeg, image/png, image/gif" required>
+
+    <button type="submit" id="submitButton" disabled>Submit</button>
+  </div>
+
+</form>
+
+<script>
+  const imageTitle = document.getElementById('titleOfImage');
+  const image = document.getElementById('imageFile');
+  const submitButton = document.getElementById('submitButton');
+
+  imageTitle.addEventListener('input', checkInputs);
+  image.addEventListener('input', checkInputs);
+
+  function checkInputs() {
+    if (imageTitle.value.trim() !== '' && image.value.trim() !== '') {
+      submitButton.disabled = false;
+    } else {
+      submitButton.disabled = true;
+    }
+  }
+</script>
+
+<style>
+  body {
+    background-image: linear-gradient(to bottom, #000000, #1d1d1d);
+    background-size: cover;
+  }
+
+  .content {
+    display: block;
+    padding: 10px 20px;
+    background-color: #08081e;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+  }
+
+  h1 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #722828;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+</style>
