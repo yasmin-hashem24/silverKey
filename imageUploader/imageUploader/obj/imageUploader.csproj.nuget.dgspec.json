@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\source\\repos\\imageUploader\\imageUploader\\imageUploader.csproj": {}
+    "C:\\Users\\Lenovo\\Desktop\\imageUploader\\imageUploader\\imageUploader\\imageUploader.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\source\\repos\\imageUploader\\imageUploader\\imageUploader.csproj": {
+    "C:\\Users\\Lenovo\\Desktop\\imageUploader\\imageUploader\\imageUploader\\imageUploader.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\source\\repos\\imageUploader\\imageUploader\\imageUploader.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\imageUploader\\imageUploader\\imageUploader\\imageUploader.csproj",
         "projectName": "imageUploader",
-        "projectPath": "C:\\Users\\Lenovo\\source\\repos\\imageUploader\\imageUploader\\imageUploader.csproj",
+        "projectPath": "C:\\Users\\Lenovo\\Desktop\\imageUploader\\imageUploader\\imageUploader\\imageUploader.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\source\\repos\\imageUploader\\imageUploader\\obj\\",
+        "outputPath": "C:\\Users\\Lenovo\\Desktop\\imageUploader\\imageUploader\\imageUploader\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

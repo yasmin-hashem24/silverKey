@@ -167,6 +167,25 @@ app.MapPost("/", async (HttpContext context) =>
 {
     var file = context.Request.Form.Files["imageFile"];
 
+     title = context.Request.Form["titleOfImage"];
+    if (string.IsNullOrEmpty(title))
+    {
+        return Results.BadRequest("Title is required.");
+    }
+
+    if (file == null || file.Length == 0)
+    {
+        return Results.BadRequest("File is required.");
+    }
+
+    var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+    Console.WriteLine($"Extension: {extension}");
+    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png" && extension != ".gif")
+    {
+        return Results.BadRequest("image type not allowed");
+    }
+
+
     var baseDirectory = Directory.GetCurrentDirectory();
     if (baseDirectory == null)
     {

@@ -298,4 +298,64 @@
     "Name": "imageFile",
     "FileName": "luka.jpg"
   }
+}{
+  "Title": [
+    "yasmin"
+  ],
+  "ImageFileName": "luka.jpg",
+  "Imagee": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"luka.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"luka.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 162284,
+    "Name": "imageFile",
+    "FileName": "luka.jpg"
+  }
+}{
+  "Title": [
+    "Luka"
+  ],
+  "ImageFileName": "luka.jpg",
+  "Imagee": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"luka.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"luka.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 162284,
+    "Name": "imageFile",
+    "FileName": "luka.jpg"
+  }
+}{
+  "Title": [
+    "yasmin"
+  ],
+  "ImageFileName": "bluedots.jpg",
+  "Imagee": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"bluedots.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"bluedots.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 47042,
+    "Name": "imageFile",
+    "FileName": "bluedots.jpg"
+  }
 }
