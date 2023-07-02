@@ -7,6 +7,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+var title = "";
+var imageFileName = "";
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -95,11 +97,10 @@ app.MapGet("/", () =>
 });
 app.MapGet("/picture/{id}", async (HttpContext context) =>
 {
-    var title = context.Request.Query["title"];
-    var imageFileName = context.Request.Query["imageAdress"];
-
+   
+   
     byte[] imageBytes = await File.ReadAllBytesAsync(imageFileName);
-    string imageBase64Data = Convert.ToBase64String(imageBytes);
+    string imageArray = Convert.ToBase64String(imageBytes);
     // Generate the HTML code for the picture page using the title and image URL
     var html = $@"
     <html>
@@ -122,7 +123,14 @@ app.MapGet("/picture/{id}", async (HttpContext context) =>
                     margin: 5px;
                     border-radius: 5px;
                 }}
+                         .image-container {{display: flex;
+                flex-direction: column;
+                align-items: center;
+            }}
 
+            .image-container img {{max - width: 100%;
+                max-height: 80vh;
+            }}
                 h1 {{
                     display: inline-block;
                     padding: 10px 20px;
@@ -141,13 +149,12 @@ app.MapGet("/picture/{id}", async (HttpContext context) =>
         </head>
         <body>
             <h1>Display page</h1>
-            <div class='content'>
-                <label for='titleOfImage'>Image title:</label>
+           <div class='content'>
+            <div class='image-container'>
                 <output id='titleOfImage'>{title}</output>
-
-                <label for='imageFile'>Image:</label>
-                <img src=""data:image/png;base64,{imageBase64Data}""  alt='{title}' />
+                <img src=""data:image/png;base64,{imageArray}"" alt='{title}' />
             </div>
+        </div>
         </body>
 
 
@@ -188,7 +195,11 @@ app.MapPost("/", async (HttpContext context) =>
     string filePath = Path.Combine(baseDirectory, "file.json");
     System.IO.File.AppendAllText(filePath, json);
     var id = Guid.NewGuid().ToString();
-    return Results.Redirect($"/picture/{id}?title={imageData.Title}&imageAdress={fileName}");
+
+    title = imageData.Title;
+    imageFileName = fileName;
+
+    return Results.Redirect($"/picture/{id}");
 });
 
 app.Run();
