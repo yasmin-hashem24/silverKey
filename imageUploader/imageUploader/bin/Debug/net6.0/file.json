@@ -1,0 +1,21 @@
+{
+  "Title": [
+    "bluedot"
+  ],
+  "ImageFileName": "bluedots.jpg",
+  "Imagee": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"bluedots.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"bluedots.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 47042,
+    "Name": "imageFile",
+    "FileName": "bluedots.jpg"
+  }
+}

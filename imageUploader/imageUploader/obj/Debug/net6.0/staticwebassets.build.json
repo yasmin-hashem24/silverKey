@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "nn1IDFxEvBMP0LcGWeZEahOc2bVmFgFN0NRYhxKzXh8=",
+  "Source": "imageUploader",
+  "BasePath": "_content/imageUploader",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
