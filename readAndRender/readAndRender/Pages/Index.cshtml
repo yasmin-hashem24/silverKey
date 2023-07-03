@@ -1,0 +1,88 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+    
+@if (@Model.itemList == null || @Model.itemList.Count == 0)
+{
+    <p>No items to display.</p>
+}
+else
+{ 
+         @foreach (var item in Model.itemList)
+        {
+            <div class="content">
+                <div class="header">
+                    <h1>@item.pubDate</h1>
+                </div>
+                <div class="description">
+                    <p>@item.description</p>
+                    <div class="link-box">
+                        <a href="@item.link" target="_blank">@item.link</a>
+                        <p><a href="@item.guid" target="_blank">@item.link</a></p>
+                    </div>
+                </div>
+                <div class="image">
+                    <img src="@item.image" alt="@item.title" />
+                    
+                </div>
+                <p>@item.title</p>
+            </div>
+        }
+}
+<style>
+    body {
+        background-image: linear-gradient(to bottom, #000000, #1d1d1d);
+        background-size: cover;
+    }
+    
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #08081e;
+        color: white;
+        font-size: 20px;
+        border: none;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    
+    .header {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    
+    .description {
+        text-align: left;
+        padding-right: 20px;
+    }
+    
+    .link-box {
+        display: inline-block;
+        padding: 5px 5px;
+        background-color: #722828;
+        color: white;
+        text-align: center;
+        font-size: 10px;
+        border: none;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 5px;
+    }
+    
+    .image {
+        text-align: center;
+    }
+    
+    .image img {
+        max-width: 100%;
+    }
+    
+    .content p {
+        margin: 0;
+    }
+</style>
