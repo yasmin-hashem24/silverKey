@@ -378,4 +378,44 @@
     "Name": "imageFile",
     "FileName": "luka.jpg"
   }
+}{
+  "Title": [
+    "marwan"
+  ],
+  "ImageFileName": "cat.jpg",
+  "Imagee": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"cat.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"cat.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 60174,
+    "Name": "imageFile",
+    "FileName": "cat.jpg"
+  }
+}{
+  "Title": [
+    "yasmin"
+  ],
+  "ImageFileName": "luka.jpg",
+  "Imagee": {
+    "ContentDisposition": "form-data; name=\"imageFile\"; filename=\"luka.jpg\"",
+    "ContentType": "image/jpeg",
+    "Headers": {
+      "Content-Disposition": [
+        "form-data; name=\"imageFile\"; filename=\"luka.jpg\""
+      ],
+      "Content-Type": [
+        "image/jpeg"
+      ]
+    },
+    "Length": 162284,
+    "Name": "imageFile",
+    "FileName": "luka.jpg"
+  }
 }
