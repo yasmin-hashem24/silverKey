@@ -5,27 +5,27 @@
 }
 
     
-@if (@Model.itemList == null || @Model.itemList.Count == 0)
+@if (@Model.ItemList == null || @Model.ItemList.Count == 0)
 {
     <p>No items to display.</p>
 }
 else
 { 
-         @foreach (var item in Model.itemList)
+         @foreach (var item in Model.ItemList)
         {
             <div class="content">
                 <div class="header">
-                    <h1>@item.pubDate</h1>
+                    <h1>@item.PubDate</h1>
                 </div>
                 <div class="description">
-                    <p>@item.description</p>
+                    <p>@item.Description</p>
                     <div class="link-box">
-                        <a href="@item.link" target="_blank">@item.link</a>
-                        <p><a href="@item.guid" target="_blank">@item.link</a></p>
+                        <a href="@item.Link" target="_blank">@item.Link</a>
+                        <p><a href="@item.Guid" target="_blank">@item.Link</a></p>
                     </div>
                 </div>
                
-                <p>@item.title</p>
+                <p>@item.Title</p>
             </div>
         }
 }

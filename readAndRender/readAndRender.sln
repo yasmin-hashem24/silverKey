@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "readAndRender", "readAndRender\readAndRender.csproj", "{5768C747-8B5C-4378-9ED5-3AC7A620E5AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReadAndRender", "readAndRender\ReadAndRender.csproj", "{5768C747-8B5C-4378-9ED5-3AC7A620E5AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

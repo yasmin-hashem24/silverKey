@@ -1,5 +1,3 @@
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,16 +13,9 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
-
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapRazorPages();
-
 app.Run();

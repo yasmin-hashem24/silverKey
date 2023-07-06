@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,8 +6,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-var title = "";
-var imageFileName = "";
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -18,206 +15,240 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Global variables to be accessable within any mapping.
+var title = "";
+var imageFileName = "";
+
 app.MapGet("/", () =>
 {
     return Results.Content(@"
-    <html>
-        <head>
-            <title>Image uploader form</title>
-            <style>
-                body {
-                    background-image: linear-gradient(to bottom, #000000, #1d1d1d);
-                    background-size: cover;
-                }
+   <html>
+  <head>
+    <title>Image Uploader</title>
+    <style>
 
-                .content {
-                    display: block;
-                    padding: 10px 20px;
-                    background-color: #08081e;
-                    color: white;
-                    font-size: 20px;
-                    border: none;
-                    cursor: pointer;
-                    margin: 5px;
-                    border-radius: 5px;
-                }
+      body{
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      form{
+        display: flex;
+        justify-content: center;
+     }
+     label{
+        font-size: 24px;
+        font-weight: 700;
+     }
+      .title{
+        text-align: center;
+        padding-top: 5%;
+        padding-bottom: 2%;
+      }
 
-                h1 {
-                    display: inline-block;
-                    padding: 10px 20px;
-                    background-color: #722828;
-                    color: white;
-                    text-align: center;
-                    font-size: 30px;
-                    border: none;
-                    cursor: pointer;
-                    margin: 5px;
-                    border-radius: 5px;
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Image uploader form</h1>
+      .textbox{
+        width: 20%;
+        height: 30px;
+      }
 
-            <form method='post' enctype='multipart/form-data'>
-                <div class='content'>
-                    <label for='titleOfImage'>Enter image title:</label>
-                    <input type='text' id='titleOfImage' name='titleOfImage' required>
+      .upload-image-frame {
+        width: 40%;
+        height: 40%;
+        border: 5px dashed black;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-                    <label for='imageFile'>Choose an image file:</label>
-                    <input type='file' id='imageFile' name='imageFile' accept='image/jpeg, image/png, image/gif' required>
+      .chooseButton{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width:15%;
+        height: 70px;
+        background-color: #919297;
+        font-size: 22px;
+        font-weight: 700;
+        border-radius: 10px;
+        position: absolute;
 
-                    <button type='submit' id='submitButton' disabled>Submit</button>
-                </div>
-            </form>
+      }
 
-            <script>
-                const imageTitle = document.getElementById('titleOfImage');
-                const image = document.getElementById('imageFile');
-                const submitButton = document.getElementById('submitButton');
+      .chooseButton:hover{
+        cursor: pointer;
+        background-color: #ADAEB3; ;
+    }
 
-                imageTitle.addEventListener('input', checkInputs);
-                image.addEventListener('input', checkInputs);
+    .uploadButton{
+        display: flex;
+        justify-content: center;
+        width:30%;
+        height: 40px;
+        font-size: 20px;
+        padding-top: 7px;
+        font-weight: 700;
+        margin: 2%;
+        border-radius: 10px;
+        background-color: #04aa6d;
+        cursor: pointer;
+        border: 0 none;
+    }
+    .uploadButton:hover{
+        background-color: #00ba6d;
+    }
+    </style>
+  </head>
 
-                function checkInputs() {
-                    if (imageTitle.value.trim() !== '' && image.value.trim() !== '') {
-                        submitButton.disabled = false;
-                    } else {
-                        submitButton.disabled = true;
-                    }
-                }
-            </script>
-        </body>
-    </html>  ", "text/html");
+  <body>
+    
+    <h1 class=""title""> Image Uploader</h1>
+    <form method=""post"" enctype=""multipart/form-data"">
+        <label for=""imageTitle"">Enter Title: </label>
+        <input type=""text"" name=""imageTitle"" class=""textbox"">
+        <input type=""file"" name=""image"" id=""fileToUpload"" hidden>
+        <input type=""submit"" value=""Upload Image"" name=""submit"" id=""submitButton"" hidden>
+    </form>
+    <div class=""upload-image-frame"">
+        <img src="""" id=""image"" style=""width: 99%; height: 99%; object-fit: contain;"">
+        <div class=""chooseButton"" id=""choosePic""> Choose Image</div>
+    </div>
+    <div style=""display: flex; justify-content: space-evenly; width:40%; margin: 0 auto ;"">
+    <button class=""uploadButton"" id=""changeButton"">Change Pic</button>
+    <button class=""uploadButton"" id=""fakeSubmitButton"">Upload</button>
+    </div>
 
+
+
+  </body>
+
+  <script>
+    const realSubmitButton = document.getElementById(""submitButton"");
+    const realChoosePic = document.getElementById(""fileToUpload"");
+    const fakeChoosePic = document.getElementById(""choosePic"");
+    const fakeSubmitButton = document.getElementById(""fakeSubmitButton"");
+    const img = document.getElementById(""image"");
+
+    fakeChoosePic.addEventListener(""click"", function(){
+      realChoosePic.click();
+      fakeChoosePic.remove();
+    });
+
+    fakeSubmitButton.addEventListener(""click"", function(){
+      realSubmitButton.click();
+    });
+
+    changeButton.addEventListener(""click"", function(){
+        realChoosePic.click();
+    });
+
+    realChoosePic.addEventListener(""change"", function(){
+        const file = this.files[0];
+        if(file){
+            const reader = new FileReader();
+            reader.addEventListener(""load"", function(){
+                img.setAttribute(""src"", this.result);
+            });
+            reader.readAsDataURL(file);
+        }
+    });
+  </script>
+</html>
+", "text/html");
 });
+
 app.MapGet("/picture/{id}", async (HttpContext context) =>
 {
-   
-   
     byte[] imageBytes = await File.ReadAllBytesAsync(imageFileName);
+    Console.Write(imageFileName);
     string imageArray = Convert.ToBase64String(imageBytes);
-    // Generate the HTML code for the picture page using the title and image URL
-    var html = $@"
-    <html>
-        <head>
-            <title>Display page</title>
-            <style>
-                body {{
-                    background-image: linear-gradient(to bottom, #000000, #1d1d1d);
-                    background-size: cover;
-                }}
 
-                .content {{
-                    display: block;
-                    padding: 10px 20px;
-                    background-color: #08081e;
-                    color: white;
-                    font-size: 20px;
-                    border: none;
-                    cursor: pointer;
-                    margin: 5px;
-                    border-radius: 5px;
-                }}
-                         .image-container {{display: flex;
-                flex-direction: column;
-                align-items: center;
-            }}
+    return Results.Content(@"<html>
+  <head>
+    <title>Image Uploader</title>
+    <style>
+      body {{
+        font-family: Arial, Helvetica, sans-serif;
+      }}
+      .title {{
+        text-align: center;
+        padding-top: 5%;
+        padding-bottom: 2%;
+      }}
+      .upload-image-frame {{
+        width: 50%;
+        height: 50%;
+        border: 5px dashed black;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }}
 
-            .image-container img {{max - width: 100%;
-                max-height: 80vh;
-            }}
-                h1 {{
-                    display: inline-block;
-                    padding: 10px 20px;
-                    background-color: #722828;
-                    color: white;
-                    text-align: center;
-                    font-size: 30px;
-                    border: none;
-                    cursor: pointer;
-                    margin: 5px;
-                    border-radius: 5px;
-                    border-top-left-radius: 0;
-                    border-top-right-radius: 0;
-                }}
-            </style>
-        </head>
-        <body>
-            <h1>Display page</h1>
-           <div class='content'>
-            <div class='image-container'>
+      .img{{
+        height: 100%;
+      }}
+    </style>
+  </head>
+
+  <body>
+    <h1 class=""title"">Title Here</h1>
+   <div class='image-container'>
                 <output id='titleOfImage'>{title}</output>
                 <img src=""data:image/png;base64,{imageArray}"" alt='{title}' />
             </div>
-        </div>
-        </body>
+  </body>
+</html>", "text/html");
 
-
-    </html>";
-
-    return Results.Content(html, "text/html");
 });
 
 app.MapPost("/", async (HttpContext context) =>
 {
-    var file = context.Request.Form.Files["imageFile"];
+    var image = context.Request.Form.Files["image"];
 
-     title = context.Request.Form["titleOfImage"];
-    if (string.IsNullOrEmpty(title))
-    {
-        return Results.BadRequest("Title is required.");
-    }
+    //Making server-side validations
 
-    if (file == null || file.Length == 0)
-    {
-        return Results.BadRequest("File is required.");
-    }
+    // 1. Check image is not null
+    if (image == null || image.Length == 0)
+        return Results.BadRequest("Kindly choose an image.");
 
-    var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
-    Console.WriteLine($"Extension: {extension}");
-    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png" && extension != ".gif")
-    {
-        return Results.BadRequest("image type not allowed");
-    }
+    // 2. Check existance of a title
+    var imageTitle = context.Request.Form["imageTitle"];
+    if (string.IsNullOrEmpty(imageTitle))
+        return Results.BadRequest("Kindly add a title for your image.");
 
+    // 3. Check valid extenstions
+    var ext = Path.GetExtension(image.FileName).ToLowerInvariant();
+    if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif")
+        return Results.BadRequest("Please enter a vaild file extension.");
 
-    var baseDirectory = Directory.GetCurrentDirectory();
-    if (baseDirectory == null)
-    {
-        throw new Exception("Current directory is null.");
-    }
+    //Creating a directory to save uploaded images
 
-    var imagesDirectory = Path.Combine(baseDirectory, "images");
+    // 1. Check that the current directory exists 
+    var currDir = Directory.GetCurrentDirectory();
+    if (currDir == null)
+        throw new Exception("No directory exists.");
+
+    // 2. Check whether images directory is created or not
+    var imagesDirectory = Path.Combine(currDir, "images");
     if (!Directory.Exists(imagesDirectory))
-    {
         Directory.CreateDirectory(imagesDirectory);
-    }
 
-    var fileName = Path.Combine(imagesDirectory, file.FileName);
-    using (var stream = new FileStream(fileName, FileMode.Create))
-    {
-        await file.CopyToAsync(stream);
-    }
+    // 3. Save image file 
+    var imageName = Path.Combine(imagesDirectory, image.FileName);
+    using (var stream = new FileStream(imageName, FileMode.Create))
+        await image.CopyToAsync(stream);
 
-    var imageData = new
-    {
-        Title = context.Request.Form["titleOfImage"],
-        ImageFileName = file.FileName,
-        Imagee = file
-    };
-    string json = JsonConvert.SerializeObject(imageData, Formatting.Indented);
-    string filePath = Path.Combine(baseDirectory, "file.json");
-    System.IO.File.AppendAllText(filePath, json);
-    var id = Guid.NewGuid().ToString();
+    // Creating a unqiue ID for an image
+    var uniqueID = Guid.NewGuid().ToString();
 
-    title = imageData.Title;
-    imageFileName = fileName;
+    title = context.Request.Form["imageTitle"];
+    imageFileName = imageName;
 
-    return Results.Redirect($"/picture/{id}");
+    return Results.Redirect($"/picture/{uniqueID}");
 });
+
+
+
 
 app.Run();
 
