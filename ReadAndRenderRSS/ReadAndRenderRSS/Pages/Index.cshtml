@@ -9,7 +9,7 @@
         <h3>Feeds</h3>
         <hr />
         <ul>
-            @foreach (Node node in Model.NodesList)
+            @foreach (Feed node in Model.NodesList)
             {
                 <li>
                     <a href="@node.HtmlUrl">@node.Text</a>
@@ -20,7 +20,7 @@
     <div class="col-md-9">
         <h3>Items</h3>
         <hr />
-        @foreach (Item item in Model.ItemList)
+        @foreach (Report item in Model.ItemList)
         {
             <div class="row">
                 <div class="col-md-12">
