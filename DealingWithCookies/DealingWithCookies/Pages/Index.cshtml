@@ -1,0 +1,94 @@
+﻿@page "{pageNumber:int?}/{pageSize:int?}"
+@model IndexModel
+@{
+   ViewData["Title"] = "RSS Feed Reader";
+}
+
+
+<div class="row">
+    <div class="col-md-3">
+        <h3>Feeds</h3>
+        <hr />
+        <ul>
+            @foreach (Feed node in Model.NodesList)
+            {
+                <li>
+                    <a href="@node.HtmlUrl">@node.Text</a>
+                  
+                </li>
+
+            }
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <h3>Items</h3>
+        <hr />
+        @foreach (Report item in Model.ItemList)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@item.PubDate</h4>
+                    <p>@item.Description</p>
+                    <p>
+                        <a href="@item.Link">@item.Link</a>
+                         <form method="post">
+                       
+                        
+                            <button type="submit" class="favorite-toggle"
+                            asp-page-handler="ToggleFavorite"
+                            asp-route-pubDate="@item.PubDate"
+                            asp-route-description="@item.Description"
+                             asp-route-link="@item.Link"
+                            asp-route-isStared="@(!item.Stared)">
+                            @Html.Raw(item.Stared ? "&#9733;" : "&#9734;")
+                        </button> </form> </p>
+                    
+                    <hr />
+                </div>
+            </div>
+        }
+        <nav aria-label="Page navigation">
+            @if (Model.NumberOfPages > 1)
+            {
+                <ul class="pagination">
+                    @if (Model.ItemList.HasPreviousPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.ItemList.PageNumber - 1, pageSize = Model.PageSize })">«</a>
+                        </li>
+                    }
+                    @for (int i = 1; i <= Model.NumberOfPages; i++)
+                    {
+                        <li class="@(i == Model.ItemList.PageNumber ? "page-item active" : "page-item")">
+                            <a class="page-link" href="@Url.Page("Index", new { pageNumber = i, pageSize = Model.PageSize })">@i</a>
+                        </li>
+                    }
+                    @if (Model.ItemList.HasNextPage)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Page("Index", new { pageNumber = Model.ItemList.PageNumber + 1, pageSize = Model.PageSize })">»</a>
+                        </li>
+                    }
+                </ul>
+            }
+        </nav>
+    </div>
+
+
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+             
+            $(".favorite-toggle").click(function () {
+                var button = $(this);
+                var pubDate = button.data("pubDate");
+                var isStared = button.data("stared");
+                button.data("stared", !isStared);
+                button.html(isStared ? "&#9734;" : "&#9733;");
+                
+            });
+        });
+    </script>
+}

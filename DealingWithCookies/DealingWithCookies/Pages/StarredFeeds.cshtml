@@ -1,0 +1,29 @@
+﻿@page
+@model StarredFeedsModel
+@{
+    ViewData["Title"] = "Starred Feeds";
+}
+
+<h1>Starred Feeds</h1>
+
+@if (Model.StarredReports.Count == 0)
+{
+    <p>You haven't starred any feeds yet!</p>
+}
+else
+{
+      @foreach (Report item in Model.StarredReports)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@item.PubDate</h4>
+                    <p>@item.Description</p>
+                    <p>
+                        <a href="@item.Link">@item.Link</a>
+                          </p>
+                    
+                    <hr />
+                </div>
+            </div>
+        }
+}
