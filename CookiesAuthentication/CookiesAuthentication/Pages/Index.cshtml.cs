@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-
 using System.Security.Claims;
 namespace CookiesAuthentication.Pages
 
@@ -20,8 +19,6 @@ namespace CookiesAuthentication.Pages
 
         public async Task<IActionResult> OnPost()
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -51,7 +48,6 @@ namespace CookiesAuthentication.Pages
                     inCorrectly = true;
                 }
                
-
             };
 
             return Page();
