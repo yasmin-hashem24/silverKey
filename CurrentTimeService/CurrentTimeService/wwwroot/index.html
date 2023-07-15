@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Time</title>
+</head>
+<body>
+    <h1>Current Time</h1>
+    <h2 id="CurrentTime"></h2>
+
+    <<script>
+    (async () => {
+        try {
+            const response = await fetch('/Current-Time-Servies');
+            const data = await response.text();
+            const currentTimeElement = document.querySelector('#CurrentTime');
+            currentTimeElement.textContent = data;
+        } catch (error) {
+            console.error(error);
+        }
+    })();
+</script>
+</body>
+</html>
