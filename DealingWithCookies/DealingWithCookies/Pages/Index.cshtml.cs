@@ -87,29 +87,17 @@ public class IndexModel : PageModel
         return Page();
     }
 
-   
-    public async Task<IActionResult> OnPostToggleFavorite(string pubDate, bool isStared, string description, string link)
+
+    public async Task<IActionResult> OnPostToggleFavoriteAsync(string pubDate, bool isStared, string description, string link)
     {
-
-        if (Request.Cookies["starredCookie"] != null)
-        {
-            string cookieValue = Request.Cookies["starredCookie"];
-            Console.WriteLine(cookieValue);
-        }
-        else
-        {
-            Console.WriteLine("Cookie not found.");
-        }
-
+        // Toggle the "starred" state of the item
         var starredItems = Request.Cookies["starredCookie"] != null ?
             JsonSerializer.Deserialize<Dictionary<string, Report>>(Request.Cookies["starredCookie"]) :
             new Dictionary<string, Report>();
 
-        
         var report = starredItems.ContainsKey(pubDate) ? starredItems[pubDate] : null;
         if (report == null)
         {
-          
             report = new Report
             {
                 PubDate = pubDate,
@@ -118,20 +106,28 @@ public class IndexModel : PageModel
                 Stared = isStared
             };
         }
+        else
+        {
+            report.Stared = !report.Stared;
+            if (!report.Stared)
+            {
+                starredItems.Remove(pubDate);
+            }
+        }
         starredItems[report.PubDate] = report;
         Response.Cookies.Append("starredCookie", JsonSerializer.Serialize(starredItems), new CookieOptions
         {
             Expires = DateTime.UtcNow.AddDays(365),
             SameSite = SameSiteMode.Strict,
             HttpOnly = true,
-            Secure = true 
+            Secure = true
         });
         await System.IO.File.WriteAllTextAsync("starredCookie.json", JsonSerializer.Serialize(starredItems.Values.ToList()));
-        return RedirectToPage();
+        return new JsonResult(new { pubDate = report.PubDate, stared = report.Stared });
     }
 }
 
-public class Feed
+    public class Feed
 {
     public string? Text { get; set; }
     public string? XmlUrl { get; set; }
