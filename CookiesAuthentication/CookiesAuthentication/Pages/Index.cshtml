@@ -4,7 +4,7 @@
     ViewData["Title"] = "Login Page";
 }
 
-@if(!Model.inCorrectly){
+@if(!User.Identity.IsAuthenticated){
 <body>
 	 <form method="post">
 		<label for="UserName">UserName:</label>
@@ -17,7 +17,7 @@
 	</form>
 </body>
 }
-@if(Model.inCorrectly)
+@if(User.Identity.IsAuthenticated)
 {
     <body>
         <h1>Welcome 2023 intern, How are you?</h1>
