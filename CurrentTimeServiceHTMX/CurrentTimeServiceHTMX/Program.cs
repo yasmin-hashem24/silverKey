@@ -13,7 +13,7 @@ app.UseHttpsRedirection();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-app.MapGet("/Current-Time-Servies", () =>
+app.MapGet("/Current-Time-Services", () =>
 {
     var CurrentTime = DateTime.Now.ToString();
     return Results.Text(CurrentTime, "text/html");

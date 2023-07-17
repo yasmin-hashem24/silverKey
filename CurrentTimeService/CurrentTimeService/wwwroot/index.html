@@ -10,7 +10,7 @@
     <<script>
     (async () => {
         try {
-            const response = await fetch('/Current-Time-Servies');
+            const response = await fetch('//Current-Time-Services');
             const data = await response.text();
             const currentTimeElement = document.querySelector('#CurrentTime');
             currentTimeElement.textContent = data;
