@@ -75,31 +75,42 @@
 
 </div>
 @section Scripts {
-    <script>
-        $(function () {
-            $(".favorite-toggle").click(function () {
-                var button = $(this);
-                var pubDate = button.data("pubDate");
-                var isStared = button.data("stared");
-                button.data("stared", !isStared);
-                button.html(isStared ? "&#9734;" : "&#9733;");
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const favoriteToggles = document.querySelectorAll(".favorite-toggle");
+        favoriteToggles.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const pubDate = button.dataset.pubDate;
+                const isStared = button.dataset.stared === "true";
+                button.dataset.stared = !isStared;
+                button.innerHTML = isStared ? "&#9734;" : "&#9733;";
 
-                $.ajax({
-                    url: "@Url.Page("Index")/ToggleFavorite",
-                    type: "POST",
-                    data: {
+                fetch("@Url.Page("Index")/ToggleFavorite", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
                         pubDate: pubDate,
                         isStared: isStared,
-                        description: button.data("description"),
-                        link: button.data("link")
-                    },
-                    success: function (data) {
-                        $(".favorite-toggle[data-pub-date='" + data.pubDate + "']").html(data.stared ? "&#9733;" : "&#9734;");
-                    },
-                    error: function (xhr, status, error) {
-                    }
+                        description: button.dataset.description,
+                        link: button.dataset.link
+                    })
+                })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    const buttons = document.querySelectorAll(".favorite-toggle[data-pub-date='" + data.pubDate + "']");
+                    buttons.forEach(function (button) {
+                        button.innerHTML = data.stared ? "&#9733;" : "&#9734;";
+                    });
+                })
+                .catch(function (error) {
+                    console.log(error);
                 });
             });
         });
-    </script>
+    });
+</script>
 }

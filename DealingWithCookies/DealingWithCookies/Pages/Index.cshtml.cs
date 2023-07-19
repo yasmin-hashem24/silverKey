@@ -8,24 +8,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using X.PagedList;
 using System.Text.Json;
+
 namespace DealingWithCookies.Pages;
 
 public class IndexModel : PageModel
 {
     private readonly IHttpClientFactory _clientFactory;
     public List<Feed> NodesList { get; private set; } = new List<Feed>();
-
-
     public IPagedList<Report> ItemList { get; private set; }
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 10;
     public int NumberOfPages { get; set; }
-
     public IndexModel(IHttpClientFactory clientFactory)
     {
         _clientFactory = clientFactory;
     }
-
     public async Task<IActionResult> OnGetAsync(int? pageNumber, int? pageSize)
     {
         if (pageNumber.HasValue)
@@ -86,62 +83,5 @@ public class IndexModel : PageModel
         httpClient.Dispose();
         return Page();
     }
-
-
-    public async Task<IActionResult> OnPostToggleFavoriteAsync(string pubDate, bool isStared, string description, string link)
-    {
-        // Toggle the "starred" state of the item
-        var starredItems = Request.Cookies["starredCookie"] != null ?
-            JsonSerializer.Deserialize<Dictionary<string, Report>>(Request.Cookies["starredCookie"]) :
-            new Dictionary<string, Report>();
-
-        var report = starredItems.ContainsKey(pubDate) ? starredItems[pubDate] : null;
-        if (report == null)
-        {
-            report = new Report
-            {
-                PubDate = pubDate,
-                Description = description,
-                Link = link,
-                Stared = isStared
-            };
-        }
-        else
-        {
-            report.Stared = !report.Stared;
-            if (!report.Stared)
-            {
-                starredItems.Remove(pubDate);
-            }
-        }
-        starredItems[report.PubDate] = report;
-        Response.Cookies.Append("starredCookie", JsonSerializer.Serialize(starredItems), new CookieOptions
-        {
-            Expires = DateTime.UtcNow.AddDays(365),
-            SameSite = SameSiteMode.Strict,
-            HttpOnly = true,
-            Secure = true
-        });
-        await System.IO.File.WriteAllTextAsync("starredCookie.json", JsonSerializer.Serialize(starredItems.Values.ToList()));
-        return new JsonResult(new { pubDate = report.PubDate, stared = report.Stared });
-    }
 }
 
-    public class Feed
-{
-    public string? Text { get; set; }
-    public string? XmlUrl { get; set; }
-    public string? HtmlUrl { get; set; }
-}
-
-public class Report
-{
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public string Link { get; set; } = string.Empty;
-    public string Guid { get; set; } = string.Empty;
-    public string Image { get; set; } = string.Empty;
-    public string PubDate { get; set; } = string.Empty;
-    public string Creator { get; set; } = string.Empty;
-    public bool Stared { get; set; } = false;
-}
