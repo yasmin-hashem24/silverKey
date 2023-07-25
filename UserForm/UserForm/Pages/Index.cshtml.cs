@@ -35,7 +35,6 @@ namespace UserForm.Pages
             _edgeDbClient = edgeDbClient;
            
         }
-
         public async Task<IActionResult> OnGetAsync()
         {
             SearchTerm = Request.Query["SearchTerm"].ToString();
@@ -64,13 +63,11 @@ namespace UserForm.Pages
                     }
                 }
             }
-         
-            Console.WriteLine(ContactList.Count);
             return Page();
         }
     
 
-    public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             var contact = new Contact
             {
@@ -87,27 +84,26 @@ namespace UserForm.Pages
                 "INSERT Contact { FirstName := <str>$FirstName, LastName := <str>$LastName, Email := <str>$Email, Title := <str>$Title, Description := <str>$Description, DateOfBirth := <str>$DateOfBirth, MarriageStatus := <bool>$MarriageStatus }",
                 new Dictionary<string, object>
                 {
-            { "FirstName", contact.FirstName },
-            { "LastName", contact.LastName },
-            { "Email", contact.Email },
-            { "Title", contact.Title },
-            { "Description", contact.Description },
-            { "DateOfBirth", contact.DateOfBirth },
-            { "MarriageStatus", contact.MarriageStatus }
+                    { "FirstName", contact.FirstName },
+                    { "LastName", contact.LastName },
+                    { "Email", contact.Email },
+                    { "Title", contact.Title },
+                    { "Description", contact.Description },
+                    { "DateOfBirth", contact.DateOfBirth },
+                    { "MarriageStatus", contact.MarriageStatus }
                 });
-
 
             return Page();
         }
     }
         public class Contact
-    {
-        public string FirstName { get; set; } = " ";
-        public string LastName { get; set; } = " ";
-        public string Email { get; set; } = " ";
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string DateOfBirth { get; set; }
-        public bool MarriageStatus { get; set; } = false;
-    }
+        {
+            public string FirstName { get; set; } = " ";
+            public string LastName { get; set; } = " ";
+            public string Email { get; set; } = " ";
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public string DateOfBirth { get; set; }
+            public bool MarriageStatus { get; set; } = false;
+        }
 }
