@@ -9,7 +9,7 @@ namespace UserForm.Pages
     public class IndexModel : PageModel
     {
         [BindProperty]
-        public List<Contact> ContactList { get; private set; }
+        public List<Contact> ContactList { get; private set; } = new List<Contact>();
         [BindProperty]
         public string SearchTerm { get; set; }
 
@@ -101,9 +101,9 @@ namespace UserForm.Pages
             public string FirstName { get; set; } = " ";
             public string LastName { get; set; } = " ";
             public string Email { get; set; } = " ";
-            public string Title { get; set; }
-            public string Description { get; set; }
-            public string DateOfBirth { get; set; }
+        public string Title { get; set; } = " ";
+        public string Description { get; set; } = " ";
+        public string DateOfBirth { get; set; } = " ";
             public bool MarriageStatus { get; set; } = false;
         }
 }
