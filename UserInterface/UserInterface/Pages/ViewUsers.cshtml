@@ -1,0 +1,48 @@
+﻿@page
+@model UserInterface.Pages.ViewUsersModel
+@{
+}
+<body>
+  <h2>Contact List</h2>
+
+  <table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date of Birth</th>
+            <th>Role</th>
+            <th>UserName</th>
+            <th>Married</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model.ContactList)
+        {
+            <tr>
+                <td>@contact.FirstName</td>
+                <td>@contact.LastName</td>
+                <td>@contact.Email</td>
+                <td>@contact.Title</td>
+                <td>@contact.Description</td>
+                <td>@contact.DateOfBirth</td>
+                <td>@contact.Role</td>
+                <td>@contact.UserName</td>
+                <td>@(contact.MarriageStatus ? "Yes" : "No")</td>
+               <td>
+                    <form method="post"asp-page-handler="Edit">
+                            <input type="hidden" name="username" value="@contact.UserName" />
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+</body>

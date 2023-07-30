@@ -6,6 +6,8 @@ type Contact {
   required property Title -> str;
   required property Description -> str;
   required property DateOfBirth -> str;
+   required property Role -> str;
+    required property UserName -> str;
   required property MarriageStatus -> bool;
 }
 }

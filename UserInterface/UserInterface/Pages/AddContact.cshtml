@@ -1,0 +1,129 @@
+﻿@page
+@model UserInterface.Pages.AddContactModel
+@{
+}
+
+<body>
+
+  <form method="post" asp-page-handler="Logout" style="position: absolute; top: 10px; right: 10px;">
+    <input type="submit" value="Logout" style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+</form>
+    <div class="container">
+        <form method="post">
+            <label for="FirstName">First Name:</label>
+            <input type="text" id="FirstName" name="FirstName" required>
+
+             <label for="UserName">UserName Name:</label>
+            <input type="text" id="UserName" name="UserName" required>
+
+            <label for="LastName">Last Name:</label>
+            <input type="text" id="LastName" name="LastName" required>
+
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" name="Email" required>
+
+            <label for="Title">Title:</label>
+            <input type="text" id="Title" name="Title" required>
+
+            <label for="Role">Role:</label>
+            <input type="text" id="Role" name="Role" required>
+
+            <label for="Description">Description:</label>
+            <input type="text" id="Description" name="Description" required>
+
+            <label for="DateOfBirth">Date of Birth:</label>
+            <input type="text" id="DateOfBirth" name="DateOfBirth" required>
+
+            <label for="MarriageStatus">Married:</label>
+            <input type="checkbox" id="MarriageStatus" name="MarriageStatus" value="true">
+
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    
+        <form method="get">
+        <label for="SearchTerm">SearchTerm:</label>
+        <input type="text" id="SearchTerm" name="SearchTerm">
+        <input type="submit" value="Search">
+    </form>
+    
+    <h2>Contact List</h2>
+
+  <table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date of Birth</th>
+            <th>Role</th>
+            <th>UserName</th>
+            <th>Married</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model.ContactList)
+        {
+            <tr>
+                <td>@contact.FirstName</td>
+                <td>@contact.LastName</td>
+                <td>@contact.Email</td>
+                <td>@contact.Title</td>
+                <td>@contact.Description</td>
+                <td>@contact.DateOfBirth</td>
+                <td>@contact.Role</td>
+                <td>@contact.UserName</td>
+                <td>@(contact.MarriageStatus ? "Yes" : "No")</td>
+               <td>
+                    <form method="post"asp-page-handler="Edit">
+                            <input type="hidden" name="username" value="@contact.UserName" />
+                        <button type="submit">Edit</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+</body>
+
+<style>
+    .container {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        width: 300px;
+    }
+
+    input[type="text"], input[type="checkbox"] {
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+        background-color: #f1f1f1;
+        width: 100%;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+        margin: 10px;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+    }
+</style>
