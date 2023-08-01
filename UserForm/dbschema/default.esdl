@@ -1,11 +1,11 @@
 module default {
 type Contact {
-  required property FirstName -> str;
-  required property LastName -> str;
-  required property Email -> str;
-  required property Title -> str;
-  required property Description -> str;
-  required property DateOfBirth -> str;
-  required property MarriageStatus -> bool;
+required property first_name -> str;
+required property last_name -> str;
+required property email -> str;
+required property title -> str;
+required property description -> str;
+required property date_of_birth -> str;
+required property marriage_status -> bool;
 }
 }
