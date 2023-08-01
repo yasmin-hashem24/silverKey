@@ -2,6 +2,7 @@ module default {
 type Contact {
   required property FirstName -> str;
   required property LastName -> str;
+   required property Password -> str;
   required property Email -> str;
   required property Title -> str;
   required property Description -> str;

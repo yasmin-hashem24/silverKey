@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EdgeDB;
+using Microsoft.AspNetCore.Identity;
 namespace UserInterface.Pages;
 
 public class AddContactModel : PageModel
@@ -25,6 +26,9 @@ public class AddContactModel : PageModel
 
     [BindProperty]
     public string UserName { get; set; }
+
+    [BindProperty]
+    public string Password { get; set; }
 
     [BindProperty]
     public string Role { get; set; }
@@ -73,7 +77,7 @@ public class AddContactModel : PageModel
                         Description = contact.Description,
                         DateOfBirth = contact.DateOfBirth,
                         MarriageStatus = contact.MarriageStatus,
-                         Role = contact.Role,
+                        Role = contact.Role,
                         UserName = contact.UserName
                     });
                 }
@@ -85,6 +89,8 @@ public class AddContactModel : PageModel
 
     public async Task<IActionResult> OnPostAsync()
     {
+        var passwordHasher = new PasswordHasher<string>();
+        string hashedPassword = passwordHasher.HashPassword(null, Password);
         var contact = new Contact
         {
             FirstName = FirstName,
@@ -94,11 +100,13 @@ public class AddContactModel : PageModel
             Description = Description,
             DateOfBirth = DateOfBirth,
             MarriageStatus = MarriageStatus,
-            UserName = UserName
+            UserName = UserName,
+            Role = Role,
+            Password = hashedPassword
         };
 
         var result = await _edgeDbClient.QueryAsync<Contact>(
-            "INSERT Contact { FirstName := <str>$FirstName, LastName := <str>$LastName,UserName := <str>$UserName, Email := <str>$Email, Title := <str>$Title, Role := <str>$Role, Description := <str>$Description, DateOfBirth := <str>$DateOfBirth, MarriageStatus := <bool>$MarriageStatus }",
+            "INSERT Contact { FirstName := <str>$FirstName, LastName := <str>$LastName,UserName := <str>$UserName, Email := <str>$Email, Title := <str>$Title,Password := <str>$Password, Role := <str>$Role, Description := <str>$Description, DateOfBirth := <str>$DateOfBirth, MarriageStatus := <bool>$MarriageStatus }",
             new Dictionary<string, object>
             {
             { "FirstName", contact.FirstName },
@@ -109,7 +117,8 @@ public class AddContactModel : PageModel
             { "DateOfBirth", contact.DateOfBirth },
             { "MarriageStatus", contact.MarriageStatus },
             { "Role", contact.Role },
-            { "UserName", contact.UserName}
+            { "UserName", contact.UserName},
+            { "Password", contact.Password}
             });
 
         return Page();
@@ -125,5 +134,6 @@ public class Contact
     public string DateOfBirth { get; set; } = " ";
     public string Role { get; set; } = " ";
     public string UserName { get; set; } = " ";
+    public string Password { get; set; } = " ";
     public bool MarriageStatus { get; set; } = false;
 }

@@ -23,14 +23,15 @@ namespace UserInterface.Pages
         {
 
 
-            var query = $@"SELECT Contact {{ UserName, Role }} FILTER .UserName = <str>$UserName;";
+            var query = $@"SELECT Contact {{ UserName, Role }} FILTER .UserName = <str>$UserName AND .Password = <str>$Password;";
 
             var result = await _edgeDbClient.QueryAsync<Contact>(query, new Dictionary<string, object?>
             {
-                ["UserName"] = UserName
+                ["UserName"] = UserName,
+                ["Password"] = Password
             });
 
-           
+
             if (result.Count == 0 || result == null)
             {
                 ModelState.AddModelError("", "Invalid login");
@@ -40,9 +41,7 @@ namespace UserInterface.Pages
             var user = result.SingleOrDefault();
 
             if (user != null)
-            {
-               
-                Console.WriteLine("fe user ah");
+            { 
                 return user.Role == "Admin" ? Redirect("/AddContact") : Redirect("/ViewUsers");
             }
 

@@ -36,6 +36,9 @@
 
             <label for="MarriageStatus">Married:</label>
             <input type="checkbox" id="MarriageStatus" name="MarriageStatus" value="true">
+            
+            <label for="Password">Password:</label>
+            <input type="password" id="Password" name="Password" required>
 
             <input type="submit" value="Add">
         </form>
@@ -65,26 +68,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var contact in Model.ContactList)
-        {
-            <tr>
-                <td>@contact.FirstName</td>
-                <td>@contact.LastName</td>
-                <td>@contact.Email</td>
-                <td>@contact.Title</td>
-                <td>@contact.Description</td>
-                <td>@contact.DateOfBirth</td>
-                <td>@contact.Role</td>
-                <td>@contact.UserName</td>
-                <td>@(contact.MarriageStatus ? "Yes" : "No")</td>
-               <td>
-                    <form method="post"asp-page-handler="Edit">
-                            <input type="hidden" name="username" value="@contact.UserName" />
-                        <button type="submit">Edit</button>
-                    </form>
-                </td>
-            </tr>
-        }
+       @foreach (var contact in Model.ContactList)
+{
+    <tr>
+        <td>@contact.FirstName</td>
+        <td>@contact.LastName</td>
+        <td>@contact.Email</td>
+        <td>@contact.Title</td>
+        <td>@contact.Description</td>
+        <td>@contact.DateOfBirth</td>
+        <td>@contact.Role</td>
+        <td>@contact.UserName</td>
+        <td>@(contact.MarriageStatus ? "Yes" : "No")</td>
+        <td style="text-align: center; padding: 10px;">
+            <form method="post" asp-page-handler="Edit">
+                <input type="hidden" name="username" value="@contact.UserName" />
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+    </tr>
+}
     </tbody>
 </table>
 

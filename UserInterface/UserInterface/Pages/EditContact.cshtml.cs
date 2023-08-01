@@ -1,37 +1,74 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EdgeDB;
-namespace UserInterface.Pages
+using System.Text.Json;
+namespace UserInterface.Pages;
+public class EditContactModel : PageModel
 {
-    public class EditContactModel : PageModel
+    private readonly EdgeDBClient _edgeDbClient;
+    [BindProperty]
+    public Contact ContactTemp { get; set; } = new();
+
+    public EditContactModel(EdgeDBClient edgeDbClient)
+    {
+        _edgeDbClient = edgeDbClient;
+    }
+
+  
+    public async Task<IActionResult> OnGetAsync(string username)
+    {
+        string query = "SELECT Contact {FirstName, LastName, Email, Title, Description, DateOfBirth, MarriageStatus,Role,UserName } " +
+                                        "FILTER Contact.UserName = <str>$username;";
+
+        var parameters = new Dictionary<string, object>
+            {
+                { "username", username }
+            };
+        // Execute the EdgeDB query and retrieve the result
+        var contact = await _edgeDbClient.QueryAsync<Contact>(query, parameters);
+
+        // Retrieve the first contact in the collection (assuming there's only one)
+        ContactTemp = contact.FirstOrDefault();
+       
+        
+
+        return Page();
+    }
+
+    public async Task<IActionResult> OnPostAsync()
     {
 
-        private readonly EdgeDBClient _edgeDbClient;
-        public EditContactModel(EdgeDBClient edgeDbClient)
-        {
+        string UserName = Request.Form["UserName"];
+        string query1 = "SELECT Contact {FirstName, LastName, Email, Title, Description, DateOfBirth, MarriageStatus,Role,UserName } " +
+                                        "FILTER Contact.UserName = <str>$UserName;";
 
-            _edgeDbClient = edgeDbClient;
-
-        }
-        public async Task<IActionResult> OnGetAsync(string username)
-        {
-            // retrieve the contact with the specified username from the database
-            var contact = await _edgeDbClient.QueryAsync<Contact>(
-                "SELECT Contact FILTER Contact.UserName = <str>$username",
-                new Dictionary<string, object>
-                {
-            { "username", username }
-                });
-
-            if (contact == null)
+        var parameters = new Dictionary<string, object>
             {
-                return NotFound();
-            }
+                { "UserName", UserName }
+            };
+        // Execute the EdgeDB query and retrieve the result
+        var contact = await _edgeDbClient.QueryAsync<Contact>(query1, parameters);
+       
+        // Retrieve the first contact in the collection (assuming there's only one)
+        ContactTemp = contact.FirstOrDefault();
+        
+        var query = @"
+        UPDATE Contact
+        FILTER Contact.UserName = <str>$UserName
+        SET {
+            FirstName := <str>$FirstName,
+            LastName := <str>$LastName
+        }";
 
-            // populate the input fields with the existing values
-            // ...
+        await _edgeDbClient.ExecuteAsync(query, new Dictionary<string, object?>
+    {
+        { "UserName", ContactTemp.UserName },
+        { "FirstName", ContactTemp.FirstName },
+        { "LastName", ContactTemp.LastName }
+    });
 
-            return Page();
-        }
+        return RedirectToPage("/AddContact");
     }
 }

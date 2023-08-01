@@ -1,4 +1,84 @@
-﻿@page
+﻿@page "{username}"
 @model UserInterface.Pages.EditContactModel
 @{
 }
+
+<body>
+
+  <form method="post" asp-page-handler="Logout" style="position: absolute; top: 10px; right: 10px;">
+    <input type="submit" value="Logout" style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+  </form>
+
+  <div class="container">
+    <h2>Edit Contact</h2>
+    <form method="post">
+      <label for="FirstName">First Name:</label>
+      <input type="text" id="FirstName" name="FirstName" asp-for="ContactTemp.FirstName" required>
+
+      <label for="UserName">UserName:</label>
+      <input type="text" id="UserName" name="UserName" asp-for="ContactTemp.UserName" readonly>
+
+      <label for="LastName">Last Name:</label>
+      <input type="text" id="LastName" name="LastName" asp-for="ContactTemp.LastName" required>
+
+      <label for="Email">Email:</label>
+      <input type="text" id="Email" name="Email" asp-for="ContactTemp.Email" >
+
+      <label for="Title">Title:</label>
+      <input type="text" id="Title" name="Title" asp-for="ContactTemp.Title" >
+
+      <label for="Role">Role:</label>
+      <input type="text" id="Role" name="Role" asp-for="ContactTemp.Role" >
+
+      <label for="Description">Description:</label>
+      <input type="text" id="Description" name="Description" asp-for="ContactTemp.Description" >
+
+      <label for="DateOfBirth">Date of Birth:</label>
+      <input type="text" id="DateOfBirth" name="DateOfBirth" asp-for="ContactTemp.DateOfBirth" >
+
+      <label for="MarriageStatus">Married:</label>
+      <input type="checkbox" id="MarriageStatus" name="MarriageStatus" asp-for="ContactTemp.MarriageStatus">
+
+      <input type="submit" value="Save">
+    </form>
+  </div>
+
+</body>
+
+<style>
+  .container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 300px;
+  }
+
+  input[type="text"],
+  input[type="checkbox"] {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+
+  input[type="submit"] {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+  }
+</style>
