@@ -7,7 +7,7 @@ namespace UserInterface.Pages;
 public class AddContactModel : PageModel
 {
     [BindProperty]
-    public List<Contact> ContactList { get; private set; } = new List<Contact>();
+    public List<Contact> ContactList { get; private set; } = new();
     [BindProperty]
     public string SearchTerm { get; set; }
 
