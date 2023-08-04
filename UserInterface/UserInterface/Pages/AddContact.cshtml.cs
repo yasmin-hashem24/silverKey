@@ -55,11 +55,10 @@ public class AddContactModel : PageModel
     public async Task<IActionResult> OnGetAsync()
     {
         SearchTerm = Request.Query["SearchTerm"].ToString();
+        var query = "SELECT Contact { first_name, last_name, email, title, description, date_of_birth, marriage_status }";
+      
 
-        var query = "SELECT Contact { FirstName, LastName, Email, Title, Description, DateOfBirth, MarriageStatus,Role,UserName }";
-
-
-        var result = await _edgeDbClient.QueryAsync<Contact>(query);
+        var result = await _edgeDbClient.QueryAsync(query);
 
 
         foreach (var obj in result)
@@ -105,21 +104,21 @@ public class AddContactModel : PageModel
             Password = hashedPassword
         };
 
-        var result = await _edgeDbClient.QueryAsync<Contact>(
-            "INSERT Contact { FirstName := <str>$FirstName, LastName := <str>$LastName,UserName := <str>$UserName, Email := <str>$Email, Title := <str>$Title,Password := <str>$Password, Role := <str>$Role, Description := <str>$Description, DateOfBirth := <str>$DateOfBirth, MarriageStatus := <bool>$MarriageStatus }",
-            new Dictionary<string, object>
-            {
-            { "FirstName", contact.FirstName },
-            { "LastName", contact.LastName },
-            { "Email", contact.Email },
-            { "Title", contact.Title },
-            { "Description", contact.Description },
-            { "DateOfBirth", contact.DateOfBirth },
-            { "MarriageStatus", contact.MarriageStatus },
-            { "Role", contact.Role },
-            { "UserName", contact.UserName},
-            { "Password", contact.Password}
-            });
+            var result = await _edgeDbClient.QueryAsync<Contact>(
+        "INSERT Contact { FirstName := <str>$first_name, LastName := <str>$last_name, UserName := <str>$user_name, Email := <str>$email, Title := <str>$title, Password := <str>$password, Role := <str>$role, Description := <str>$description, DateOfBirth := <str>$date_of_birth, MarriageStatus := <bool>$marriage_status }",
+        new Dictionary<string, object>
+        {
+            { "first_name", contact.FirstName },
+            { "last_name", contact.LastName },
+            { "email", contact.Email },
+            { "title", contact.Title },
+            { "description", contact.Description },
+            { "date_of_birth", contact.DateOfBirth },
+            { "marriage_status", contact.MarriageStatus },
+            { "role", contact.Role },
+            { "user_name", contact.UserName},
+            { "password", contact.Password}
+        });
 
         return Page();
     }

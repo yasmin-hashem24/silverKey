@@ -1,17 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using EdgeDB;
+using System.Text.Json;
 namespace UserInterface.Pages
 {
    
     public class ViewUsersModel : PageModel
     {
         [BindProperty]
-        public List<Contact> ContactList { get; private set; } = new List<Contact>();
+        public List<dynamic> ContactList { get; private set; } = new();
+        [BindProperty]
+        public List<Contact> ContactListe { get; private set; } = new();
         private readonly EdgeDBClient _edgeDbClient;
         public ViewUsersModel(EdgeDBClient edgeDbClient)
         {
-            ContactList = new List<Contact>();
+          
             _edgeDbClient = edgeDbClient;
 
         }
@@ -19,32 +22,32 @@ namespace UserInterface.Pages
         {
             
 
-            var query = "SELECT Contact { FirstName, LastName, Email, Title, Description, DateOfBirth, MarriageStatus,Role,UserName }";
+            var query = "SELECT Contact { first_name, last_name, email, title, description, date_of_birth, marriage_status,role,user_name }";
 
 
-            var result = await _edgeDbClient.QueryAsync<Contact>(query);
-
-
-            foreach (var obj in result)
+            var result = await _edgeDbClient.QueryAsync(query);
+           
+            foreach (var contact in result)
             {
-                if (obj is Contact contact)
+                if (contact != null)
                 {
-                   
-                        ContactList.Add(new Contact
-                        {
-                            FirstName = contact.FirstName,
-                            LastName = contact.LastName,
-                            Email = contact.Email,
-                            Title = contact.Title,
-                            Description = contact.Description,
-                            DateOfBirth = contact.DateOfBirth,
-                            MarriageStatus = contact.MarriageStatus,
-                            Role = contact.Role,
-                            UserName = contact.UserName
-                        });
-                    
+
+                    ContactList.Add(contact);
+
                 }
+
             }
+
+            ContactListe = ContactList.ConvertAll(c => new Contact
+            {
+                FirstName = c.first_name ?? "",
+                LastName = c.last_name ?? "",
+                Email = c.email ?? "",
+                Title = c.title ?? "",
+                Description = c.description ?? "",
+                DateOfBirth = c.date_of_birth ?? "",
+                MarriageStatus = c.marriage_status ?? false
+            });
             return Page();
         }
     }
