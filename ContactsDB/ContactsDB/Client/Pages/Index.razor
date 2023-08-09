@@ -1,9 +1,40 @@
 ﻿@page "/"
+@using EdgeDB
+@using System.Collections.Generic
+@using System.Net.Http
+@using System.Text.Json
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
 
-<PageTitle>Index</PageTitle>
+<EditForm OnValidSubmit="HandleLogin">
+    <div class="container">
+        <label for="UserName">UserName:</label>
+        <InputText id="UserName" @bind-Value="login.UserName" required />
 
-<h1>Hello, world!</h1>
+        <label for="Password">Password:</label>
+        <InputText id="Password" @bind-Value="login.Password" type="password" required />
 
-Welcome to your new app.
+        <button type="submit">Login</button>
+    </div>
+</EditForm>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code {
+    private Login login = new Login();
+
+    private async Task HandleLogin()
+    {
+        var response = await HttpClient.PostAsJsonAsync("/login", login);
+        var content = await response.Content.ReadAsStringAsync();
+
+        var contact = JsonSerializer.Deserialize<Contact>(content);
+
+        if (contact.role == "Admin")
+        {
+            NavigationManager.NavigateTo("/AddContact");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/ViewUsers");
+        }
+    }
+}
