@@ -5,41 +5,48 @@
 @using System.Text.Json
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+@page "/login"
 
 <EditForm Model="@login" OnValidSubmit="HandleLogin">
     <div class="container">
         <label for="UserName">UserName:</label>
-        <InputText id="UserName" @bind-Value="login.UserName" required />
+        <InputText id="UserName" @bind-Value="login.UserName" class="form-control" required />
 
         <label for="Password">Password:</label>
-        <InputText id="Password" @bind-Value="login.Password" type="password" required />
+        <InputText id="Password" @bind-Value="login.Password" type="password" class="form-control" required />
 
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
     </div>
 </EditForm>
 
-
 <style>
     .container {
-        max-width: 400px;
-        display: block;
-        padding: 10px;
+        max-height: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
         background-color: #fff;
         border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        width: 500px;
+        margin: 0 auto;
+        margin-top: 100px;
     }
-    input[type="text"], input[type="password"] {
+
+    .form-control {
         padding: 10px;
-        margin: 10px;
+        margin: 20px;
         border-radius: 5px;
         background-color: #f1f1f1;
         width: 100%;
     }
-    input[type="submit"] {
+
+    .btn-primary {
         padding: 10px;
-        margin: 10px;
+        margin: 20px;
         border-radius: 5px;
-        background-color: cornflowerblue;
+        background-color: #4CAF50;
         color: #fff;
         font-weight: bold;
         cursor: pointer;
@@ -47,12 +54,14 @@
     }
 </style>
 
+
 @code {
     private Login login = new Login();
 
     private async Task HandleLogin()
     {
         var response = await HttpClient.PostAsJsonAsync("/login", login);
+        
         var content = await response.Content.ReadAsStringAsync();
 
         var contact = JsonSerializer.Deserialize<Contact>(content);
