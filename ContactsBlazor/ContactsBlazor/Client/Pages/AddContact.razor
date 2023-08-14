@@ -5,64 +5,114 @@
 @using System.Text.Json
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+<body>
+
+    <form method="post" @onsubmit="Logout" style="position: absolute; top: 10px; right: 10px;">
+        <input type="submit" value="Logout"
+            style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+    </form>
+    <div class="container">
+    <form method="post" @onsubmit="HandleAddContact">
+        <label for="FirstName">First Name:</label>
+        <input type="text" id="FirstName" @bind="contact.FirstName" required>
+
+        <label for="LastName">Last Name:</label>
+        <input type="text" id="LastName" @bind="contact.LastName" required>
+
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" @bind="contact.Email" required>
+
+        <label for="Title">Title:</label>
+        <input type="text" id="Title" @bind="contact.Title" required>
+
+        <label for="Description">Description:</label>
+        <input type="text" id="Description" @bind="contact.Description" required>
+
+        <label for="DateOfBirth">Date of Birth:</label>
+        <input type="text" id="DateOfBirth" @bind="contact.DateOfBirth" required>
+
+         <label for="Password">Password:</label>
+        <input type="password" id="Password" @bind="contact.Password" required>
+
+        <label for="UserName">UserName:</label>
+        <input type="UserName" id="UserName" @bind="contact.UserName" required>
+
+        <label for="Role">Role:</label>
+        <input type="text" id="Role" @bind="contact.Role" required>
+
+        <label for="MarriageStatus">Married:</label>
+        <input type="checkbox" id="MarriageStatus" @bind="contact.MarriageStatus" value="true">
+
+        <input type="submit" value="Add">
+    </form>
+</div>
+    
+       <form method="get">
+        <label for="SearchTerm">SearchTerm:</label>
+        <input type="text" id="SearchTerm" name="SearchTerm" @bind="SearchTerm">
+        <input type="submit" value="Search">
+    </form>
+    
+    <h2>Contact List</h2>
+
+  <table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date of Birth</th>
+            <th>Role</th>
+            <th>UserName</th>
+            <th>Married</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var contact in ContactList)
+{
+    <tr>
+        <td>@contact.first_name</td>
+        <td>@contact.last_name</td>
+        <td>@contact.email</td>
+        <td>@contact.title</td>
+        <td>@contact.description</td>
+        <td>@contact.date_of_birth</td>
+        <td>@contact.role</td>
+        <td>@contact.user_name</td>
+        <td>@(contact.marriage_status ? "Yes" : "No")</td>
+        <td style="text-align: center; padding: 10px;">
+        <button type="submit" class="btn" @onclick="async () => await EditatAdd(contact.user_name)">Edit</button>
+
+        </td>
+    </tr>
+}
+    </tbody>
+</table>
 
 
-<EditForm Model="@contact" OnValidSubmit="HandleAddContact">
- 
-        <div class="container">
-        
-            <label for="FirstName">First Name:</label>
-            <InputText id="FirstName" @bind-Value="contact.FirstName" class="form-control" required />
+</body>
 
-             <label for="UserName">UserName Name:</label>
-           <InputText id="UserName" @bind-Value="contact.UserName" class="form-control" required />
-
-            <label for="LastName">Last Name:</label>
-           <InputText id="LastName" @bind-Value="contact.LastName" class="form-control" required />
-
-            <label for="Email">Email:</label>
-            <InputText id="Email" @bind-Value="contact.Email" class="form-control" required />
-
-            <label for="Title">Title:</label>
-           <InputText id="Title" @bind-Value="contact.Title" class="form-control" required />
-
-            <label for="Role">Role:</label>
-            <InputText id="Role" @bind-Value="contact.Role" class="form-control" required />
-
-            <label for="Description">Description:</label>
-            <InputText id="Description" @bind-Value="contact.Description" class="form-control" required />
-
-            <label for="DateOfBirth">Date of Birth:</label>
-            <InputText id="DateOfBirth" @bind-Value="contact.DateOfBirth" class="form-control" required />
-
-            <label for="MarriageStatus">Married:</label>
-            <InputCheckbox id="MarriageStatus" @bind-Value="contact.MarriageStatus" class="form-check-input"/>
-
-            <label for="Password">Password:</label>
-            <InputText id="Password" @bind-Value="contact.Password" type="password" class="form-control" required />
-
-             <button type="submit" class="btn btn-primary">Add</button>
-    </div>
 <style>
-
-
     .container {
-        max-height: 300px;
-      
+        max-height: 400px;
+        overflow-y: auto;
     }
-   
+
     form {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 20px;
-        position: relative;
         background-color: #fff;
         border-radius: 10px;
-        width: 500px;
+        width: 300px;
     }
 
-   .form-control {
+    input[type="text"], input[type="checkbox"] {
         padding: 10px;
         margin: 10px;
         border-radius: 5px;
@@ -70,7 +120,7 @@
         width: 100%;
     }
 
-   .btn-primary {
+    input[type="submit"] {
         padding: 10px;
         margin: 10px;
         border-radius: 5px;
@@ -81,7 +131,6 @@
         width: 100%;
     }
 </style>
-</EditForm>
 
 @code {
 
@@ -89,19 +138,12 @@
     private List<Contact> ContactList { get;  set; } = new();
     private string SearchTerm { get; set; } = "";
 
-
-    private async Task OnGetAsync()
+    protected override async Task OnInitializedAsync()
     {
+        
+        ContactList = await HttpClient.GetFromJsonAsync<List<Contact>>($"/SearchContactPost/{SearchTerm}");
 
-        var response = await HttpClient.GetAsync($"/SearchContact?term={SearchTerm}");
-
-        if (response.IsSuccessStatusCode)
-        {
-            var content = await response.Content.ReadAsStringAsync();
-            ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
-        }
     }
-
     
     private async Task HandleAddContact()
     {
@@ -110,5 +152,16 @@
        
          NavigationManager.NavigateTo("/AddContact");
         
+    }
+    private async Task Logout()
+    {
+       Console.WriteLine("INSIDE Logout");
+         NavigationManager.NavigateTo("/");
+        
+    }
+
+    private async Task EditatAdd(string username)
+    {
+        NavigationManager.NavigateTo($"/EditContact/{username}");
     }
 }

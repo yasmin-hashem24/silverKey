@@ -1,0 +1,114 @@
+﻿@page "/EditContact/{username}"
+@using EdgeDB
+@using System.Collections.Generic
+@using System.Net.Http
+@using System.Text.Json
+@using System.Net.Http.Json;
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+
+<body>
+
+ <form method="post" @onsubmit="Logout" style="position: absolute; top: 10px; right: 10px;">
+        <input type="submit" value="Logout"
+            style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+    </form>
+
+  <div class="container">
+    <h2>Edit Contact</h2>
+    <form method="post" @onsubmit="OnEdit">
+            <label for="FirstName">First Name:</label>
+            <input type="text" id="FirstName" name="FirstName" @bind="@ContactTemp.first_name" required>
+
+            <label for="UserName">UserName:</label>
+            <input type="text" id="UserName" name="UserName" @bind="@ContactTemp.user_name" readonly>
+
+            <label for="LastName">Last Name:</label>
+            <input type="text" id="LastName" name="LastName" @bind="@ContactTemp.last_name" required>
+
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" name="Email" @bind="@ContactTemp.email">
+
+            <label for="Title">Title:</label>
+            <input type="text" id="Title" name="Title" @bind="@ContactTemp.title">
+
+            <label for="Role">Role:</label>
+            <input type="text" id="Role" name="Role" @bind="@ContactTemp.role">
+
+            <label for="Description">Description:</label>
+            <input type="text" id="Description" name="Description" @bind="@ContactTemp.description">
+
+            <label for="DateOfBirth">Date of Birth:</label>
+            <input type="text" id="DateOfBirth" name="DateOfBirth" @bind="@ContactTemp.date_of_birth">
+
+            <label for="MarriageStatus">Married:</label>
+            <input type="checkbox" id="MarriageStatus" name="MarriageStatus" @bind="@ContactTemp.marriage_status">
+
+            <input type="submit" value="Save">
+    </form>
+  </div>
+
+</body>
+
+<style>
+  .container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    width: 300px;
+  }
+
+  input[type="text"],
+  input[type="checkbox"] {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+
+  input[type="submit"] {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+  }
+</style>
+
+@code {
+    private Contact ContactTemp = new Contact();
+    [Parameter]
+    public string username { get; set; }
+   
+    protected override async Task OnInitializedAsync()
+    {
+         
+        ContactTemp = await HttpClient.GetFromJsonAsync<Contact>($"/editContact/{username}");
+        Console.WriteLine(JsonSerializer.Serialize(ContactTemp));
+    }
+
+     private async Task OnEdit()
+    {
+           var response = await HttpClient.PostAsJsonAsync("/HandleEditContact",ContactTemp);
+           NavigationManager.NavigateTo("/AddContact");
+    }
+    private async Task Logout()
+    {
+         NavigationManager.NavigateTo("/");
+    }
+
+}

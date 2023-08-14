@@ -6,12 +6,16 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 
-<Form>
- <div class="container">
+<body>
 
-	   <form method="get">
+    <form method="post" @onsubmit="Logout" style="position: absolute; top: 10px; right: 10px;">
+        <input type="submit" value="Logout"
+            style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+    </form>
+    
+       <form method="get">
         <label for="SearchTerm">SearchTerm:</label>
-        <input type="text" id="SearchTerm" name="SearchTerm">
+        <input type="text" id="SearchTerm" name="SearchTerm" @bind="SearchTerm">
         <input type="submit" value="Search">
     </form>
     
@@ -45,39 +49,30 @@
         <td>@contact.role</td>
         <td>@contact.user_name</td>
         <td>@(contact.marriage_status ? "Yes" : "No")</td>
-        <td style="text-align: center; padding: 10px;">
-        <form method="post" asp-page-handler="Edit">
-                <input type="hidden" name="username" value="@contact.user_name" />
-                <button type="submit">Edit</button>
-            </form>
-
-        </td>
+        <td style="text-align: center; padding: 10px;"></td>
     </tr>
 }
     </tbody>
 </table>
-	 </div>
-</Form>
 
+
+</body>
 
 <style>
-
-
     .container {
         max-height: 400px;
         overflow-y: auto;
     }
-   
+
     form {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 20px;
-        position: relative;
         background-color: #fff;
         border-radius: 10px;
-        width: 500px;
+        width: 300px;
     }
 
     input[type="text"], input[type="checkbox"] {
@@ -101,33 +96,26 @@
 </style>
 
 
-
 @code {
 
-      private List<Contact> ContactList { get;  set; } = new();
+    private List<Contact> ContactList { get;  set; } = new();
 
-   
+
 
     private string SearchTerm { get; set; } = "";
 
-    private void OnPostLogout()
+     private async Task Logout()
     {
-
-          NavigationManager.NavigateTo("/");
+       Console.WriteLine("INSIDE Logout");
+         NavigationManager.NavigateTo("/");
+        
     }
 
-    private async Task OnGetAsync()
+    protected override async Task OnInitializedAsync()
     {
-       
-
-            var response = await HttpClient.GetAsync($"/SearchContact?term={SearchTerm}");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
-            }
+        ContactList = await HttpClient.GetFromJsonAsync<List<Contact>>($"/SearchContactPost/{SearchTerm}");
     }
+    
 
 }
 

@@ -62,27 +62,74 @@ app.MapPost("/AddConactPost", async (HttpContext context, EdgeDBClient _edgeDbCl
 });
 
 
-
-app.MapPost("/SearchContactPost", async (HttpContext context, EdgeDBClient _edgeDbClient, string SearchTerm) =>
+app.MapPost("/HandleEditContact", async (HttpContext context, EdgeDBClient _edgeDbClient, Contact ContactTemp) =>
 {
+
+    Console.WriteLine("WE INSIDE edit CONTACT");
+    string username = ContactTemp.user_name;
+   string first_name = ContactTemp.first_name;
+    string last_name = ContactTemp.last_name;
+    
+    Console.WriteLine(first_name);
+
+    var query = @"
+                    UPDATE Contact
+                    FILTER Contact.user_name = <str>$username
+                    SET {
+                        first_name := <str>$first_name,
+                        last_name := <str>$last_name
+                    }";
+    await _edgeDbClient.ExecuteAsync(query, new Dictionary<string, object?>
+                    {
+                        { "username", username },
+                        { "first_name", first_name },
+                        { "last_name", last_name }
+                    });
+
+    return Results.Ok();
+});
+
+
+app.MapGet("/SearchContactPost", async (HttpContext context, EdgeDBClient _edgeDbClient) => {
+    string SearchTerm = context.Request.Query["SearchTerm"];
     List<Contact> ContactList = new();
-
     var query = "SELECT Contact { first_name, last_name, email, title, description, date_of_birth, marriage_status,user_name }";
-
-
     var result = await _edgeDbClient.QueryAsync<Contact>(query);
-
-
     foreach (var contact in result)
     {
-        if (contact.first_name.Contains(SearchTerm) || contact.last_name.Contains(SearchTerm) || contact.email.Contains(SearchTerm))
+        if (SearchTerm != null && SearchTerm != "")
         {
-            ContactList.Add(contact);
+            if (contact.first_name.Contains(SearchTerm) || contact.last_name.Contains(SearchTerm) || contact.email.Contains(SearchTerm))
+            {
+                ContactList.Add(contact);
+            }
+        }
+        else
+        {
+            return Results.Ok(result);
+
         }
 
     }
     return Results.Ok(ContactList);
 
+});
+
+
+
+app.MapGet("/editContact/{username}", async (string username,HttpContext context, EdgeDBClient _edgeDbClient) => {
+
+   
+
+    var query = "SELECT Contact {user_name, password,role ,first_name,last_name,description,title,marriage_status} " +
+                      "FILTER Contact.user_name = <str>$username LIMIT 1;";
+
+    Contact contact = await _edgeDbClient.QuerySingleAsync<Contact>(query, new Dictionary<string, object>
+    {
+        { "username", username }
+    });
+   
+    return contact;
 });
 
 // Configure the HTTP request pipeline.
