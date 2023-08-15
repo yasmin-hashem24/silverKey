@@ -3,10 +3,9 @@ using EdgeDB;
 using ContactsBlazor.Client;
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
+
+
 var builder = WebApplication.CreateBuilder(args);
-
-
-// Add services to the container.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -18,7 +17,6 @@ var app = builder.Build();
 
 app.MapPost("/login", async (HttpContext context, EdgeDBClient _edgeDbClient, Login login) =>
 {
- 
     string username = login.UserName;
     string password = login.Password;
     var query= "SELECT Contact {user_name, password, role, first_name, last_name, description, title, marriage_status} " +
@@ -35,13 +33,8 @@ app.MapPost("/login", async (HttpContext context, EdgeDBClient _edgeDbClient, Lo
 
 app.MapPost("/AddConactPost", async (HttpContext context, EdgeDBClient _edgeDbClient, InputContact contact) =>
 {
-
-    Console.WriteLine("WE INSIDE ADD CONTACT");
-    Console.WriteLine(contact.FirstName);
     var passwordHasher = new PasswordHasher<string>();
     string hashedPassword = passwordHasher.HashPassword(null, contact.Password);
-
-   
 
     var result = await _edgeDbClient.QueryAsync<Contact>(
         "INSERT Contact { first_name := <str>$first_name, last_name := <str>$last_name, user_name := <str>$user_name, email := <str>$email, title := <str>$title, password := <str>$password, role := <str>$role, description := <str>$description, date_of_birth := <str>$date_of_birth, marriage_status := <bool>$marriage_status }",
@@ -64,13 +57,10 @@ app.MapPost("/AddConactPost", async (HttpContext context, EdgeDBClient _edgeDbCl
 
 app.MapPost("/HandleEditContact", async (HttpContext context, EdgeDBClient _edgeDbClient, Contact ContactTemp) =>
 {
-
-    Console.WriteLine("WE INSIDE edit CONTACT");
     string username = ContactTemp.user_name;
-   string first_name = ContactTemp.first_name;
+    string first_name = ContactTemp.first_name;
     string last_name = ContactTemp.last_name;
-    
-    Console.WriteLine(first_name);
+   
 
     var query = @"
                     UPDATE Contact
@@ -93,9 +83,6 @@ app.MapPost("/HandleEditContact", async (HttpContext context, EdgeDBClient _edge
 app.MapPost("/SearchContactPost", async (HttpContext context, EdgeDBClient _edgeDbClient) =>
 {
     string searchTerm = await new StreamReader(context.Request.Body).ReadToEndAsync();
-
-    Console.WriteLine("search inside program.cs");
-    Console.WriteLine(searchTerm);
     List<Contact> contactList = new List<Contact>();
 
     var query = "SELECT Contact { first_name, last_name, email, title, description, date_of_birth, marriage_status, user_name }";
@@ -125,8 +112,6 @@ app.MapPost("/SearchContactPost", async (HttpContext context, EdgeDBClient _edge
 
 app.MapGet("/editContact/{username}", async (string username,HttpContext context, EdgeDBClient _edgeDbClient) => {
 
-   
-
     var query = "SELECT Contact {user_name, password,role ,first_name,last_name,description,title,marriage_status} " +
                       "FILTER Contact.user_name = <str>$username LIMIT 1;";
 
@@ -151,15 +136,10 @@ else
 }
 
 app.UseHttpsRedirection();
-
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
-
 app.Run();

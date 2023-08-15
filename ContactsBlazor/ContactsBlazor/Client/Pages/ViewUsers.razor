@@ -14,7 +14,7 @@
             style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
     </form>
     
-      <form method="get">
+    <form method="get">
     <label for="SearchTerm">SearchTerm:</label>
     <input type="text" id="SearchTerm" name="SearchTerm" @bind="SearchTerm">
     <input type="button" value="Search" @onclick="SearchContacts" />
@@ -101,22 +101,21 @@
 @code {
 
     private List<Contact> ContactList { get;  set; } = new();
-
     private string SearchTerm { get; set; } = "";
 
-     private async Task Logout()
+    private async Task Logout()
     {
        Console.WriteLine("INSIDE Logout");
          NavigationManager.NavigateTo("/");
         
     }
-   private async Task SearchContacts()
-{
-    var response = await HttpClient.PostAsync("/SearchContactPost", new StringContent(SearchTerm));
-    var content = await response.Content.ReadAsStringAsync();
+    private async Task SearchContacts()
+    {
+        var response = await HttpClient.PostAsync("/SearchContactPost", new StringContent(SearchTerm));
+        var content = await response.Content.ReadAsStringAsync();
 
-    ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
-}
+        ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
+    }
     protected override async Task OnInitializedAsync()
     {
          await SearchContacts();

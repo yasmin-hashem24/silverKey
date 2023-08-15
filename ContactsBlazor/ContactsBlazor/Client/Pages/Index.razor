@@ -61,9 +61,7 @@
     private async Task HandleLogin()
     {
         var response = await HttpClient.PostAsJsonAsync("/login", login);
-        
         var content = await response.Content.ReadAsStringAsync();
-
         var contact = JsonSerializer.Deserialize<Contact>(content);
 
         if (contact.role == "Admin")

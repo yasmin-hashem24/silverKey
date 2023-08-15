@@ -107,8 +107,6 @@
       justify-content: center;
       align-items: center;
     }
-
-
     form {
         display: flex;
         flex-direction: column;
@@ -146,19 +144,17 @@
     private List<Contact> ContactList { get;  set; } = new();
     private string SearchTerm { get; set; } = "";
 
-   private async Task SearchContacts()
-{
-    var response = await HttpClient.PostAsync("/SearchContactPost", new StringContent(SearchTerm));
-    var content = await response.Content.ReadAsStringAsync();
+    private async Task SearchContacts()
+    {
+        var response = await HttpClient.PostAsync("/SearchContactPost", new StringContent(SearchTerm));
+        var content = await response.Content.ReadAsStringAsync();
 
-    ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
-}
+        ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
+    }
     protected override async Task OnInitializedAsync()
     {
          await SearchContacts();
     }
-
-    
     private async Task HandleAddContact()
     {
         Console.WriteLine("INSIDE HANDLE");
@@ -173,7 +169,6 @@
          NavigationManager.NavigateTo("/");
         
     }
-
     private async Task EditatAdd(string username)
     {
         NavigationManager.NavigateTo($"/EditContact/{username}");
