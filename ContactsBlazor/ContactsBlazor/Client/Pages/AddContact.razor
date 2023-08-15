@@ -3,6 +3,8 @@
 @using System.Collections.Generic
 @using System.Net.Http
 @using System.Text.Json
+@using Microsoft.AspNetCore.Components.Web
+
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 <body>
@@ -47,11 +49,12 @@
     </form>
 </div>
     
-       <form method="get">
-        <label for="SearchTerm">SearchTerm:</label>
-        <input type="text" id="SearchTerm" name="SearchTerm" @bind="SearchTerm">
-        <input type="submit" value="Search">
-    </form>
+     <form method="get">
+    <label for="SearchTerm">SearchTerm:</label>
+    <input type="text" id="SearchTerm" name="SearchTerm" @bind="SearchTerm">
+    <input type="button" value="Search" @onclick="SearchContacts" />
+
+</form>
     
     <h2>Contact List</h2>
 
@@ -120,7 +123,7 @@
         width: 100%;
     }
 
-    input[type="submit"] {
+    input[type="submit"],input[type="button"] {
         padding: 10px;
         margin: 10px;
         border-radius: 5px;
@@ -138,12 +141,18 @@
     private List<Contact> ContactList { get;  set; } = new();
     private string SearchTerm { get; set; } = "";
 
+   private async Task SearchContacts()
+{
+    var response = await HttpClient.PostAsync("/SearchContactPost", new StringContent(SearchTerm));
+    var content = await response.Content.ReadAsStringAsync();
+
+    ContactList = JsonSerializer.Deserialize<List<Contact>>(content);
+}
     protected override async Task OnInitializedAsync()
     {
-        
-        ContactList = await HttpClient.GetFromJsonAsync<List<Contact>>($"/SearchContactPost/{SearchTerm}");
-
+         await SearchContacts();
     }
+
     
     private async Task HandleAddContact()
     {

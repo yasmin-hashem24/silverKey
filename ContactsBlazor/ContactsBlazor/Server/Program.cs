@@ -90,29 +90,35 @@ app.MapPost("/HandleEditContact", async (HttpContext context, EdgeDBClient _edge
 });
 
 
-app.MapGet("/SearchContactPost", async (HttpContext context, EdgeDBClient _edgeDbClient) => {
-    string SearchTerm = context.Request.Query["SearchTerm"];
-    List<Contact> ContactList = new();
-    var query = "SELECT Contact { first_name, last_name, email, title, description, date_of_birth, marriage_status,user_name }";
+app.MapPost("/SearchContactPost", async (HttpContext context, EdgeDBClient _edgeDbClient) =>
+{
+    string searchTerm = await new StreamReader(context.Request.Body).ReadToEndAsync();
+
+    Console.WriteLine("search inside program.cs");
+    Console.WriteLine(searchTerm);
+    List<Contact> contactList = new List<Contact>();
+
+    var query = "SELECT Contact { first_name, last_name, email, title, description, date_of_birth, marriage_status, user_name }";
     var result = await _edgeDbClient.QueryAsync<Contact>(query);
-    foreach (var contact in result)
+
+    if (!string.IsNullOrEmpty(searchTerm))
     {
-        if (SearchTerm != null && SearchTerm != "")
+        foreach (var contact in result)
         {
-            if (contact.first_name.Contains(SearchTerm) || contact.last_name.Contains(SearchTerm) || contact.email.Contains(SearchTerm))
+            if (contact.first_name.Contains(searchTerm) ||
+                contact.last_name.Contains(searchTerm) ||
+                contact.email.Contains(searchTerm))
             {
-                ContactList.Add(contact);
+                contactList.Add(contact);
             }
         }
-        else
-        {
-            return Results.Ok(result);
-
-        }
-
     }
-    return Results.Ok(ContactList);
+    else
+    {
+        contactList = result.Where(c => c != null).Cast<Contact>().ToList();
+    }
 
+    return Results.Ok(contactList);
 });
 
 
