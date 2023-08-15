@@ -9,14 +9,14 @@
 
 
 <body>
-
- <form method="post" @onsubmit="Logout" style="position: absolute; top: 10px; right: 10px;">
+<h2>Edit Contact</h2>
+ <form method="post" @onsubmit="Logout" style="position: absolute; top: 50px; right: 10px;">
         <input type="submit" value="Logout"
             style="background-color: darkred; color: white; font-weight: bold; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
     </form>
 
   <div class="container">
-    <h2>Edit Contact</h2>
+    
     <form method="post" @onsubmit="OnEdit">
             <label for="FirstName">First Name:</label>
             <input type="text" id="FirstName" name="FirstName" @bind="@ContactTemp.first_name" required>
@@ -52,10 +52,15 @@
 </body>
 
 <style>
-  .container {
-    max-height: 400px;
-    overflow-y: auto;
-  }
+ .container {
+      top: 60px;
+      overflow-y: auto;
+      margin: auto;
+       display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
 
   form {
     display: flex;
