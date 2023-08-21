@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddLocalization();
 builder.Services.AddEdgeDB(EdgeDBConnection.FromInstanceName("ContactsBlazor"), config =>
 {
     config.SchemaNamingStrategy = INamingStrategy.SnakeCaseNamingStrategy;
