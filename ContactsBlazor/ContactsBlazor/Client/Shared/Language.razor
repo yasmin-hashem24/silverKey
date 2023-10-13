@@ -1,0 +1,37 @@
+﻿@inject NavigationManager UriHelper;
+@inject IJSRuntime JSRuntime;
+@using System.Globalization;
+@using Microsoft.AspNetCore.Components;
+@using Microsoft.JSInterop;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<Language> L;
+
+<div class="me-auto d-flex justify-content-start">
+    <strong class="mt-2">@L["language"]:</strong>
+    <select class="form-control" @bind="Culture" style="width:100px; margin-left:10px;">
+        @foreach (var culture in cultures)
+        {
+            <option value="@culture">@culture.DisplayName</option>
+        }
+    </select>
+</div>
+
+@code {
+    CultureInfo[] cultures = new [] {
+        new CultureInfo("en"),
+        new CultureInfo("ar")
+    };
+    CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (CultureInfo.CurrentCulture != value)
+            {
+                var js = (IJSInProcessRuntime)JSRuntime;
+                js.InvokeVoid("blazorCulture.set", value.Name);
+                UriHelper.NavigateTo(UriHelper.Uri, forceLoad: true);
+            }
+        }
+    }
+}

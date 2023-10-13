@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
-
+﻿@using System.Globalization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<MainLayout> L
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -15,3 +17,7 @@
         </article>
     </main>
 </div>
+
+@code{
+    string lang = CultureInfo.CurrentCulture.Name.ToString();
+}
