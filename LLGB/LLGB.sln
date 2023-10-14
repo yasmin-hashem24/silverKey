@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LLGB.Migration", "LLGB.Migration\LLGB.Migration.csproj", "{36316BE4-6BF7-42DE-806A-B76A658171FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LLGB.Data", "LLGB.Data", "{998A62B2-EC76-4FA3-AC15-2BBCECD3C79C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36316BE4-6BF7-42DE-806A-B76A658171FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36316BE4-6BF7-42DE-806A-B76A658171FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36316BE4-6BF7-42DE-806A-B76A658171FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36316BE4-6BF7-42DE-806A-B76A658171FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {341ADD96-11DE-498B-9A2D-DD35B89DF8EC}
+	EndGlobalSection
+EndGlobal
