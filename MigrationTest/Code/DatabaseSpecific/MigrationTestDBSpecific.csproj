@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2FE09843-2AFE-4EA9-A0BF-85B0F512CAC2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MigrationTest.DatabaseSpecific</RootNamespace>
+    <AssemblyName>MigrationTestDBSpecific</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SD.LLBLGen.Pro.ORMSupportClasses, Version=5.10.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Solutions Design\LLBLGen Pro v5.10\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\SD.LLBLGen.Pro.ORMSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="SD.LLBLGen.Pro.DQE.PostgreSql, Version=5.10.0.0, Culture=neutral, PublicKeyToken=ca73b74ba4e3ff27, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Solutions Design\LLBLGen Pro v5.10\Frameworks\LLBLGen Pro\RuntimeLibraries\CompiledRuntimeLibraries\</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+    <Compile Include="PersistenceInfoProvider.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+    <None Include="App.config">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </None>
+    <Compile Include="ActionProcedures.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+    <Compile Include="RetrievalProcedures.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+    <Compile Include="DataAccessAdapter.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
