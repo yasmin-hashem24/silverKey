@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.HelperClasses
+namespace LLtest.HelperClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END

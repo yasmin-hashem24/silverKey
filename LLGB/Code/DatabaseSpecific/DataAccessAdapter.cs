@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.DQE.PostgreSql;
-namespace LLBLtest.DatabaseSpecific
+namespace LLtest.DatabaseSpecific
 {	
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END

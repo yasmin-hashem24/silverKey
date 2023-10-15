@@ -9,7 +9,7 @@ using System;
 using System.Runtime.Serialization;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.HelperClasses
+namespace LLtest.HelperClasses
 {
 	/// <summary>Helper class which will eases the creation of custom made resultsets. Usable in typed lists and dynamic lists created using the dynamic query engine.</summary>
 	[Serializable]

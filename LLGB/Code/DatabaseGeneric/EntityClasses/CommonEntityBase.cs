@@ -6,12 +6,12 @@
 // Templates vendor: Solutions Design.
 //////////////////////////////////////////////////////////////
 using System;
-using LLBLtest.HelperClasses;
-using LLBLtest.FactoryClasses;
+using LLtest.HelperClasses;
+using LLtest.FactoryClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using System.Runtime.Serialization;
 
-namespace LLBLtest.EntityClasses
+namespace LLtest.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
@@ -90,7 +90,7 @@ namespace LLBLtest.EntityClasses
 		/// <inheritdoc/>
 		protected override Type LLBLGenProEntityTypeEnumType
 		{
-			get { return typeof(LLBLtest.EntityType); }
+			get { return typeof(LLtest.EntityType); }
 		}
 
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode

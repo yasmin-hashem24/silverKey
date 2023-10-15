@@ -10,10 +10,10 @@ using System.Linq;
 using System.Collections.Generic;
 using SD.LLBLGen.Pro.LinqSupportClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
-using LLBLtest.EntityClasses;
-using LLBLtest.FactoryClasses;
+using LLtest.EntityClasses;
+using LLtest.FactoryClasses;
 
-namespace LLBLtest.Linq
+namespace LLtest.Linq
 {
 	/// <summary>Meta-data class for the construction of Linq queries which are to be executed using LLBLGen Pro code.</summary>
 	public partial class LinqMetaData: ILinqMetaData
@@ -42,9 +42,9 @@ namespace LLBLtest.Linq
 		/// <returns>the requested datasource</returns>
 		public IDataSource GetQueryableForEntity(int typeOfEntity)
 		{
-			switch((LLBLtest.EntityType)typeOfEntity)
+			switch((LLtest.EntityType)typeOfEntity)
 			{
-				case LLBLtest.EntityType.StudentEntity:
+				case LLtest.EntityType.StudentEntity:
 					return this.Student;
 				default:
 					return null;

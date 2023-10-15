@@ -8,7 +8,7 @@
 using System;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.HelperClasses
+namespace LLtest.HelperClasses
 {
 	/// <summary>Class for the returning of a default value when a type is given. These Default values are used for EntityFields which have a NULL value in the database.
 	/// To customize the values returned by this class, please implement the partial method <see cref="PostProcessValueToReturn"/> in a partial class of this class.</summary>

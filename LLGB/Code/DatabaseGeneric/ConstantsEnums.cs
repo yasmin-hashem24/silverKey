@@ -6,18 +6,23 @@
 // Templates vendor: Solutions Design.
 //////////////////////////////////////////////////////////////
 using System;
-using System.Data;
-using System.Threading;
-using System.Threading.Tasks;
-using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.DatabaseSpecific
+namespace LLtest
 {
-	/// <summary>Class which contains the static logic to execute action stored procedures in the database.</summary>
-	public static partial class ActionProcedures
+
+
+	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
+	public enum EntityType
 	{
-
-
-
+		///<summary>Student</summary>
+		StudentEntity
 	}
+
+
+
+	// __LLBLGENPRO_USER_CODE_REGION_START CustomUserConstants
+	// __LLBLGENPRO_USER_CODE_REGION_END
+
+
 }
+

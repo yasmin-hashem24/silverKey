@@ -6,10 +6,10 @@
 // Templates vendor: Solutions Design.
 //////////////////////////////////////////////////////////////
 using System;
-using LLBLtest.HelperClasses;
+using LLtest.HelperClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.FactoryClasses
+namespace LLtest.FactoryClasses
 {
 	/// <summary>Factory class for IEntityField2 instances, used in IEntityFields2 instances. For backwards compatibility</summary>
 	public static partial class EntityFieldFactory

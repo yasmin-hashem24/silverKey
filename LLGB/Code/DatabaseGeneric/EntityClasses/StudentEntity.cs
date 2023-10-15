@@ -10,13 +10,13 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using LLBLtest.HelperClasses;
-using LLBLtest.FactoryClasses;
-using LLBLtest.RelationClasses;
+using LLtest.HelperClasses;
+using LLtest.FactoryClasses;
+using LLtest.RelationClasses;
 
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.EntityClasses
+namespace LLtest.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
@@ -44,7 +44,7 @@ namespace LLBLtest.EntityClasses
 		{
 			public StudentEntityStaticMetaData()
 			{
-				SetEntityCoreInfo("StudentEntity", InheritanceHierarchyType.None, false, (int)LLBLtest.EntityType.StudentEntity, typeof(StudentEntity), typeof(StudentEntityFactory), false);
+				SetEntityCoreInfo("StudentEntity", InheritanceHierarchyType.None, false, (int)LLtest.EntityType.StudentEntity, typeof(StudentEntity), typeof(StudentEntityFactory), false);
 			}
 		}
 
@@ -158,7 +158,7 @@ namespace LLBLtest.EntityClasses
 	}
 }
 
-namespace LLBLtest
+namespace LLtest
 {
 	public enum StudentFieldIndex
 	{
@@ -173,7 +173,7 @@ namespace LLBLtest
 	}
 }
 
-namespace LLBLtest.RelationClasses
+namespace LLtest.RelationClasses
 {
 	/// <summary>Implements the relations factory for the entity: Student. </summary>
 	public partial class StudentRelations: RelationFactory

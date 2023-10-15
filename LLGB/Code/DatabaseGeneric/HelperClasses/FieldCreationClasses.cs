@@ -8,7 +8,7 @@
 using System;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.HelperClasses
+namespace LLtest.HelperClasses
 {
 	/// <summary>Field Creation Class for entity StudentEntity</summary>
 	public partial class StudentFields

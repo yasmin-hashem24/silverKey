@@ -8,7 +8,7 @@
 using System;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.DatabaseSpecific
+namespace LLtest.DatabaseSpecific
 {
 	/// <summary>Singleton implementation of the PersistenceInfoProvider. This class is the singleton wrapper through which the actual instance is retrieved.</summary>
 	internal static class PersistenceInfoProviderSingleton

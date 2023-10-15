@@ -7,12 +7,12 @@
 //////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
-using LLBLtest.EntityClasses;
-using LLBLtest.HelperClasses;
-using LLBLtest.RelationClasses;
+using LLtest.EntityClasses;
+using LLtest.HelperClasses;
+using LLtest.RelationClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.FactoryClasses
+namespace LLtest.FactoryClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
@@ -29,7 +29,7 @@ namespace LLBLtest.FactoryClasses
 		/// <param name="entityName">Name of the entity.</param>
 		/// <param name="typeOfEntity">The type of entity.</param>
 		/// <param name="isInHierarchy">If true, the entity of this factory is in an inheritance hierarchy, false otherwise</param>
-		public EntityFactoryBase2(string entityName, LLBLtest.EntityType typeOfEntity, bool isInHierarchy) : base(entityName, (int)typeOfEntity)
+		public EntityFactoryBase2(string entityName, LLtest.EntityType typeOfEntity, bool isInHierarchy) : base(entityName, (int)typeOfEntity)
 		{
 			_isInHierarchy = isInHierarchy;
 		}
@@ -38,7 +38,7 @@ namespace LLBLtest.FactoryClasses
 		public override IEntityFields2 CreateFields() { return ModelInfoProviderSingleton.GetInstance().GetEntityFields(this.ForEntityName); }
 		
 		/// <inheritdoc/>
-		public override IEntity2 CreateEntityFromEntityTypeValue(int entityTypeValue) {	return GeneralEntityFactory.Create((LLBLtest.EntityType)entityTypeValue); }
+		public override IEntity2 CreateEntityFromEntityTypeValue(int entityTypeValue) {	return GeneralEntityFactory.Create((LLtest.EntityType)entityTypeValue); }
 
 		/// <inheritdoc/>
 		public override IRelationCollection CreateHierarchyRelations(string objectAlias) { return ModelInfoProviderSingleton.GetInstance().GetHierarchyRelations(this.ForEntityName, objectAlias); }
@@ -70,7 +70,7 @@ namespace LLBLtest.FactoryClasses
 	public partial class StudentEntityFactory : EntityFactoryBase2<StudentEntity> 
 	{
 		/// <summary>CTor</summary>
-		public StudentEntityFactory() : base("StudentEntity", LLBLtest.EntityType.StudentEntity, false) { }
+		public StudentEntityFactory() : base("StudentEntity", LLtest.EntityType.StudentEntity, false) { }
 		/// <inheritdoc/>
 		protected override IEntity2 CreateImpl(IEntityFields2 fields) { return new StudentEntity(fields); }
 	}
@@ -82,7 +82,7 @@ namespace LLBLtest.FactoryClasses
 		/// <summary>Creates a new, empty Entity object of the type specified</summary>
 		/// <param name="entityTypeToCreate">The entity type to create.</param>
 		/// <returns>A new, empty Entity object.</returns>
-		public static IEntity2 Create(LLBLtest.EntityType entityTypeToCreate)
+		public static IEntity2 Create(LLtest.EntityType entityTypeToCreate)
 		{
 			var factoryToUse = EntityFactoryFactory.GetFactory(entityTypeToCreate);
 			IEntity2 toReturn = null;
@@ -103,9 +103,9 @@ namespace LLBLtest.FactoryClasses
 		/// <summary>Initializes the <see cref="EntityFactoryFactory"/> class.</summary>
 		static EntityFactoryFactory()
 		{
-			foreach(int entityTypeValue in Enum.GetValues(typeof(LLBLtest.EntityType)))
+			foreach(int entityTypeValue in Enum.GetValues(typeof(LLtest.EntityType)))
 			{
-				var factory = GetFactory((LLBLtest.EntityType)entityTypeValue);
+				var factory = GetFactory((LLtest.EntityType)entityTypeValue);
 				_factoryPerType.Add(factory.ForEntityType ?? factory.Create().GetType(), factory);
 			}
 		}
@@ -115,14 +115,14 @@ namespace LLBLtest.FactoryClasses
 		/// <returns>factory to use or null if not found</returns>
 		public static IEntityFactory2 GetFactory(Type typeOfEntity) { return _factoryPerType.GetValue(typeOfEntity); }
 
-		/// <summary>Gets the factory of the entity with the LLBLtest.EntityType specified</summary>
+		/// <summary>Gets the factory of the entity with the LLtest.EntityType specified</summary>
 		/// <param name="typeOfEntity">The type of entity.</param>
 		/// <returns>factory to use or null if not found</returns>
-		public static IEntityFactory2 GetFactory(LLBLtest.EntityType typeOfEntity)
+		public static IEntityFactory2 GetFactory(LLtest.EntityType typeOfEntity)
 		{
 			switch(typeOfEntity)
 			{
-				case LLBLtest.EntityType.StudentEntity:
+				case LLtest.EntityType.StudentEntity:
 					return new StudentEntityFactory();
 				default:
 					return null;
@@ -133,7 +133,7 @@ namespace LLBLtest.FactoryClasses
 	/// <summary>Element creator for creating project elements from somewhere else, like inside Linq providers.</summary>
 	public class ElementCreator : ElementCreatorBase, IElementCreator2
 	{
-		/// <summary>Gets the factory of the Entity type with the LLBLtest.EntityType value passed in</summary>
+		/// <summary>Gets the factory of the Entity type with the LLtest.EntityType value passed in</summary>
 		/// <param name="entityTypeValue">The entity type value.</param>
 		/// <returns>the entity factory of the entity type or null if not found</returns>
 		public IEntityFactory2 GetFactory(int entityTypeValue) { return (IEntityFactory2)this.GetFactoryImpl(entityTypeValue); }
@@ -169,23 +169,23 @@ namespace LLBLtest.FactoryClasses
 		/// <inheritdoc/>
 		public override IDynamicRelation CreateDynamicRelation(DerivedTableDefinition leftOperand, JoinHint joinType, string rightOperandEntityName, string aliasRightOperand, IPredicate onClause)
 		{
-			return new DynamicRelation(leftOperand, joinType, (LLBLtest.EntityType)Enum.Parse(typeof(LLBLtest.EntityType), rightOperandEntityName, false), aliasRightOperand, onClause);
+			return new DynamicRelation(leftOperand, joinType, (LLtest.EntityType)Enum.Parse(typeof(LLtest.EntityType), rightOperandEntityName, false), aliasRightOperand, onClause);
 		}
 
 		/// <inheritdoc/>
 		public override IDynamicRelation CreateDynamicRelation(string leftOperandEntityName, JoinHint joinType, string rightOperandEntityName, string aliasLeftOperand, string aliasRightOperand, IPredicate onClause)
 		{
-			return new DynamicRelation((LLBLtest.EntityType)Enum.Parse(typeof(LLBLtest.EntityType), leftOperandEntityName, false), joinType, (LLBLtest.EntityType)Enum.Parse(typeof(LLBLtest.EntityType), rightOperandEntityName, false), aliasLeftOperand, aliasRightOperand, onClause);
+			return new DynamicRelation((LLtest.EntityType)Enum.Parse(typeof(LLtest.EntityType), leftOperandEntityName, false), joinType, (LLtest.EntityType)Enum.Parse(typeof(LLtest.EntityType), rightOperandEntityName, false), aliasLeftOperand, aliasRightOperand, onClause);
 		}
 		
 		/// <inheritdoc/>
 		public override IDynamicRelation CreateDynamicRelation(IEntityFieldCore leftOperand, JoinHint joinType, string rightOperandEntityName, string aliasLeftOperand, string aliasRightOperand, IPredicate onClause)
 		{
-			return new DynamicRelation(leftOperand, joinType, (LLBLtest.EntityType)Enum.Parse(typeof(LLBLtest.EntityType), rightOperandEntityName, false), aliasLeftOperand, aliasRightOperand, onClause);
+			return new DynamicRelation(leftOperand, joinType, (LLtest.EntityType)Enum.Parse(typeof(LLtest.EntityType), rightOperandEntityName, false), aliasLeftOperand, aliasRightOperand, onClause);
 		}
 		
 		/// <inheritdoc/>
-		protected override IEntityFactoryCore GetFactoryImpl(int entityTypeValue) { return EntityFactoryFactory.GetFactory((LLBLtest.EntityType)entityTypeValue); }
+		protected override IEntityFactoryCore GetFactoryImpl(int entityTypeValue) { return EntityFactoryFactory.GetFactory((LLtest.EntityType)entityTypeValue); }
 
 		/// <inheritdoc/>
 		protected override IEntityFactoryCore GetFactoryImpl(Type typeOfEntity) { return EntityFactoryFactory.GetFactory(typeOfEntity);	}

@@ -7,13 +7,13 @@
 ////////////////////////////////////////////////////////////// 
 using System;
 using System.Linq;
-using LLBLtest.EntityClasses;
-using LLBLtest.HelperClasses;
+using LLtest.EntityClasses;
+using LLtest.HelperClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 using SD.LLBLGen.Pro.QuerySpec.AdapterSpecific;
 using SD.LLBLGen.Pro.QuerySpec;
 
-namespace LLBLtest.FactoryClasses
+namespace LLtest.FactoryClasses
 {
 	/// <summary>Factory class to produce DynamicQuery instances and EntityQuery instances</summary>
 	public partial class QueryFactory : QueryFactoryBase2

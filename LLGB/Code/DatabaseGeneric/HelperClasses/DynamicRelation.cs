@@ -6,11 +6,11 @@
 // Templates vendor: Solutions Design.
 //////////////////////////////////////////////////////////////
 using System;
-using LLBLtest.FactoryClasses;
-using LLBLtest.HelperClasses;
+using LLtest.FactoryClasses;
+using LLtest.HelperClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.RelationClasses
+namespace LLtest.RelationClasses
 {
 	/// <summary>Class to define dynamic relations for queries.</summary>
 	[Serializable]
@@ -51,7 +51,7 @@ namespace LLBLtest.RelationClasses
 		/// <param name="rightOperand">The right operand which is an entity type.</param>
 		/// <param name="aliasRightOperand">The alias of the right operand. If you don't want to / need to alias the right operand (only alias if you have to), specify string.Empty.</param>
 		/// <param name="onClause">The on clause for the join.</param>
-		public DynamicRelation(DerivedTableDefinition leftOperand, JoinHint joinType, LLBLtest.EntityType rightOperand, string aliasRightOperand, IPredicate onClause)
+		public DynamicRelation(DerivedTableDefinition leftOperand, JoinHint joinType, LLtest.EntityType rightOperand, string aliasRightOperand, IPredicate onClause)
 		{
 			this.InitClass(joinType, string.Empty, aliasRightOperand, onClause, leftOperand, GeneralEntityFactory.Create(rightOperand));
 		}
@@ -63,7 +63,7 @@ namespace LLBLtest.RelationClasses
 		/// <param name="aliasLeftOperand">The alias of the left operand. If you don't want to / need to alias the left operand (only alias if you have to), specify string.Empty.</param>
 		/// <param name="aliasRightOperand">The alias of the right operand. If you don't want to / need to alias the right operand (only alias if you have to), specify string.Empty.</param>
 		/// <param name="onClause">The on clause for the join.</param>
-		public DynamicRelation(LLBLtest.EntityType leftOperand, JoinHint joinType, LLBLtest.EntityType rightOperand, string aliasLeftOperand, string aliasRightOperand, IPredicate onClause)
+		public DynamicRelation(LLtest.EntityType leftOperand, JoinHint joinType, LLtest.EntityType rightOperand, string aliasLeftOperand, string aliasRightOperand, IPredicate onClause)
 		{
 			this.InitClass(joinType, aliasLeftOperand, aliasRightOperand, onClause, GeneralEntityFactory.Create(leftOperand), GeneralEntityFactory.Create(rightOperand));
 		}
@@ -75,7 +75,7 @@ namespace LLBLtest.RelationClasses
 		/// <param name="aliasLeftOperand">The alias of the left operand. If you don't want to / need to alias the left operand (only alias if you have to), specify string.Empty.</param>
 		/// <param name="aliasRightOperand">The alias of the right operand. If you don't want to / need to alias the right operand (only alias if you have to), specify string.Empty.</param>
 		/// <param name="onClause">The on clause for the join.</param>
-		public DynamicRelation(IEntityFieldCore leftOperand, JoinHint joinType, LLBLtest.EntityType rightOperand, string aliasLeftOperand, string aliasRightOperand, IPredicate onClause)
+		public DynamicRelation(IEntityFieldCore leftOperand, JoinHint joinType, LLtest.EntityType rightOperand, string aliasLeftOperand, string aliasRightOperand, IPredicate onClause)
 		{
 			this.InitClass(joinType, aliasLeftOperand, aliasRightOperand, onClause, leftOperand, GeneralEntityFactory.Create(rightOperand));
 		}

@@ -6,23 +6,20 @@
 // Templates vendor: Solutions Design.
 //////////////////////////////////////////////////////////////
 using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using SD.LLBLGen.Pro.ORMSupportClasses;
+using SD.LLBLGen.Pro.QuerySpec.Adapter;
 
-namespace LLBLtest
+namespace LLtest.DatabaseSpecific
 {
-
-
-	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
-	public enum EntityType
+	/// <summary>Class which contains the static logic to execute retrieval stored procedures in the database.</summary>
+	public static partial class RetrievalProcedures
 	{
-		///<summary>Student</summary>
-		StudentEntity
+
+
+
 	}
-
-
-
-	// __LLBLGENPRO_USER_CODE_REGION_START CustomUserConstants
-	// __LLBLGENPRO_USER_CODE_REGION_END
-
-
 }
-

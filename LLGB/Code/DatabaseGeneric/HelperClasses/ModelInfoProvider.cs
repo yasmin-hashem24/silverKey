@@ -6,11 +6,11 @@
 // Templates vendor: Solutions Design.
 //////////////////////////////////////////////////////////////
 using System;
-using LLBLtest.FactoryClasses;
-using LLBLtest.RelationClasses;
+using LLtest.FactoryClasses;
+using LLtest.RelationClasses;
 using SD.LLBLGen.Pro.ORMSupportClasses;
 
-namespace LLBLtest.HelperClasses
+namespace LLtest.HelperClasses
 {
 	/// <summary>Singleton implementation of the ModelInfoProvider. This class is the singleton wrapper through which the actual instance is retrieved.</summary>
 	public static class ModelInfoProviderSingleton
