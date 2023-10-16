@@ -44,8 +44,12 @@ namespace MigrationTest.Linq
 		{
 			switch((MigrationTest.EntityType)typeOfEntity)
 			{
+				case MigrationTest.EntityType.CourseEntity:
+					return this.Course;
 				case MigrationTest.EntityType.StudentEntity:
 					return this.Student;
+				case MigrationTest.EntityType.StudentCourseEntity:
+					return this.StudentCourse;
 				default:
 					return null;
 			}
@@ -72,8 +76,14 @@ namespace MigrationTest.Linq
 			return new DataSource2<TEntity>(this.AdapterToUse, new ElementCreator(), this.CustomFunctionMappings, this.ContextToUse);
 		}
 
+		/// <summary>returns the datasource to use in a Linq query when targeting CourseEntity instances in the database.</summary>
+		public DataSource2<CourseEntity> Course {	get { return new DataSource2<CourseEntity>(this.AdapterToUse, new ElementCreator(), this.CustomFunctionMappings, this.ContextToUse); } }
+		
 		/// <summary>returns the datasource to use in a Linq query when targeting StudentEntity instances in the database.</summary>
 		public DataSource2<StudentEntity> Student {	get { return new DataSource2<StudentEntity>(this.AdapterToUse, new ElementCreator(), this.CustomFunctionMappings, this.ContextToUse); } }
+		
+		/// <summary>returns the datasource to use in a Linq query when targeting StudentCourseEntity instances in the database.</summary>
+		public DataSource2<StudentCourseEntity> StudentCourse {	get { return new DataSource2<StudentCourseEntity>(this.AdapterToUse, new ElementCreator(), this.CustomFunctionMappings, this.ContextToUse); } }
 		
 
 

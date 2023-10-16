@@ -41,8 +41,19 @@ namespace MigrationTest.HelperClasses
 		private void Init()
 		{
 			this.InitClass();
+			InitCourseEntityInfo();
 			InitStudentEntityInfo();
+			InitStudentCourseEntityInfo();
 			this.BuildInternalStructures();
+		}
+
+		/// <summary>Inits CourseEntity's info objects</summary>
+		private void InitCourseEntityInfo()
+		{
+			this.AddFieldIndexEnumForElementName(typeof(CourseFieldIndex), "CourseEntity");
+			this.AddElementFieldInfo("CourseEntity", "Id", typeof(System.Int32), true, false, true, false,  (int)CourseFieldIndex.Id, 0, 0, 10);
+			this.AddElementFieldInfo("CourseEntity", "Instructor", typeof(System.String), false, false, false, false,  (int)CourseFieldIndex.Instructor, 255, 0, 0);
+			this.AddElementFieldInfo("CourseEntity", "Name", typeof(System.String), false, false, false, false,  (int)CourseFieldIndex.Name, 255, 0, 0);
 		}
 
 		/// <summary>Inits StudentEntity's info objects</summary>
@@ -53,6 +64,16 @@ namespace MigrationTest.HelperClasses
 			this.AddElementFieldInfo("StudentEntity", "Grade", typeof(System.String), false, false, false, false,  (int)StudentFieldIndex.Grade, 255, 0, 0);
 			this.AddElementFieldInfo("StudentEntity", "Id", typeof(System.Int32), true, false, true, false,  (int)StudentFieldIndex.Id, 0, 0, 10);
 			this.AddElementFieldInfo("StudentEntity", "Name", typeof(System.String), false, false, false, false,  (int)StudentFieldIndex.Name, 255, 0, 0);
+		}
+
+		/// <summary>Inits StudentCourseEntity's info objects</summary>
+		private void InitStudentCourseEntityInfo()
+		{
+			this.AddFieldIndexEnumForElementName(typeof(StudentCourseFieldIndex), "StudentCourseEntity");
+			this.AddElementFieldInfo("StudentCourseEntity", "CourseId", typeof(System.Int32), false, true, false, false,  (int)StudentCourseFieldIndex.CourseId, 0, 0, 10);
+			this.AddElementFieldInfo("StudentCourseEntity", "Id", typeof(System.Int32), true, false, true, false,  (int)StudentCourseFieldIndex.Id, 0, 0, 10);
+			this.AddElementFieldInfo("StudentCourseEntity", "RegistrationDate", typeof(System.DateTime), false, false, false, false,  (int)StudentCourseFieldIndex.RegistrationDate, 0, 0, 0);
+			this.AddElementFieldInfo("StudentCourseEntity", "StudentId", typeof(System.Int32), false, true, false, false,  (int)StudentCourseFieldIndex.StudentId, 0, 0, 10);
 		}
 	}
 }

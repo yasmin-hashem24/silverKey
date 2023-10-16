@@ -20,23 +20,24 @@ namespace MigrationTest.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-
 	/// <summary>Entity class which represents the entity 'Student'.<br/><br/></summary>
 	[Serializable]
 	public partial class StudentEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-	
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
+		private EntityCollection<StudentCourseEntity> _studentCourses;
+
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-
 		private static StudentEntityStaticMetaData _staticMetaData = new StudentEntityStaticMetaData();
 		private static StudentRelations _relationsFactory = new StudentRelations();
 
 		/// <summary>All names of fields mapped onto a relation. Usable for in-memory filtering</summary>
 		public static partial class MemberNames
 		{
+			/// <summary>Member name StudentCourses</summary>
+			public static readonly string StudentCourses = "StudentCourses";
 		}
 
 		/// <summary>Static meta-data storage for navigator related information</summary>
@@ -45,6 +46,7 @@ namespace MigrationTest.EntityClasses
 			public StudentEntityStaticMetaData()
 			{
 				SetEntityCoreInfo("StudentEntity", InheritanceHierarchyType.None, false, (int)MigrationTest.EntityType.StudentEntity, typeof(StudentEntity), typeof(StudentEntityFactory), false);
+				AddNavigatorMetaData<StudentEntity, EntityCollection<StudentCourseEntity>>("StudentCourses", a => a._studentCourses, (a, b) => a._studentCourses = b, a => a.StudentCourses, () => new StudentRelations().StudentCourseEntityUsingStudentId, typeof(StudentCourseEntity), (int)MigrationTest.EntityType.StudentCourseEntity);
 			}
 		}
 
@@ -96,6 +98,10 @@ namespace MigrationTest.EntityClasses
 			// __LLBLGENPRO_USER_CODE_REGION_START DeserializationConstructor
 			// __LLBLGENPRO_USER_CODE_REGION_END
 		}
+
+		/// <summary>Creates a new IRelationPredicateBucket object which contains the predicate expression and relation collection to fetch the related entities of type 'StudentCourse' to this entity.</summary>
+		/// <returns></returns>
+		public virtual IRelationPredicateBucket GetRelationInfoStudentCourses() { return CreateRelationInfoForNavigator("StudentCourses"); }
 		
 		/// <inheritdoc/>
 		protected override EntityStaticMetaDataBase GetEntityStaticMetaData() {	return _staticMetaData; }
@@ -106,7 +112,6 @@ namespace MigrationTest.EntityClasses
 			PerformDependencyInjection();
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-
 			OnInitClassMembersComplete();
 		}
 
@@ -122,12 +127,15 @@ namespace MigrationTest.EntityClasses
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
 
-
 			OnInitialized();
 		}
 
 		/// <summary>The relations object holding all relations of this entity with other entity classes.</summary>
 		public static StudentRelations Relations { get { return _relationsFactory; } }
+
+		/// <summary>Creates a new PrefetchPathElement2 object which contains all the information to prefetch the related entities of type 'StudentCourse' for this entity.</summary>
+		/// <returns>Ready to use IPrefetchPathElement2 implementation.</returns>
+		public static IPrefetchPathElement2 PrefetchPathStudentCourses { get { return _staticMetaData.GetPrefetchPathElement("StudentCourses", CommonEntityBase.CreateEntityCollection<StudentCourseEntity>()); } }
 
 		/// <summary>The Email property of the Entity Student<br/><br/></summary>
 		/// <remarks>Mapped on  table field: "student"."email".<br/>Table field type characteristics (type, precision, scale, length): Varchar, 0, 0, 255.<br/>Table field behavior characteristics (is nullable, is PK, is identity): false, false, false</remarks>
@@ -159,9 +167,13 @@ namespace MigrationTest.EntityClasses
 			get { return (System.String)GetValue((int)StudentFieldIndex.Name, true); }
 			set	{ SetValue((int)StudentFieldIndex.Name, value); }
 		}
+
+		/// <summary>Gets the EntityCollection with the related entities of type 'StudentCourseEntity' which are related to this entity via a relation of type '1:n'. If the EntityCollection hasn't been fetched yet, the collection returned will be empty.<br/><br/></summary>
+		[TypeContainedAttribute(typeof(StudentCourseEntity))]
+		public virtual EntityCollection<StudentCourseEntity> StudentCourses { get { return GetOrCreateEntityCollection<StudentCourseEntity, StudentCourseEntityFactory>("Student", true, false, ref _studentCourses); } }
+
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-
 
 	}
 }
@@ -188,12 +200,18 @@ namespace MigrationTest.RelationClasses
 	/// <summary>Implements the relations factory for the entity: Student. </summary>
 	public partial class StudentRelations: RelationFactory
 	{
+		/// <summary>Returns a new IEntityRelation object, between StudentEntity and StudentCourseEntity over the 1:n relation they have, using the relation between the fields: Student.Id - StudentCourse.StudentId</summary>
+		public virtual IEntityRelation StudentCourseEntityUsingStudentId
+		{
+			get { return ModelInfoProviderSingleton.GetInstance().CreateRelation(RelationType.OneToMany, "StudentCourses", true, new[] { StudentFields.Id, StudentCourseFields.StudentId }); }
+		}
 
 	}
 	
 	/// <summary>Static class which is used for providing relationship instances which are re-used internally for syncing</summary>
 	internal static class StaticStudentRelations
 	{
+		internal static readonly IEntityRelation StudentCourseEntityUsingStudentIdStatic = new StudentRelations().StudentCourseEntityUsingStudentId;
 
 		/// <summary>CTor</summary>
 		static StaticStudentRelations() { }

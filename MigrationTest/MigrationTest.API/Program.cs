@@ -53,6 +53,28 @@ app.MapPost("/add-student", async ([FromBody] Student student) =>
         }
     }
 });
+
+app.MapPost("/add-course", async ([FromBody] Course course) =>
+{
+    using (var adapter = new DataAccessAdapter(connectionString))
+    {
+        try
+        {
+            CourseEntity courseEntity = new()
+            {
+                Name = course.Name,
+                Instructor = course.Instructor,
+                Id = course.Id
+            };
+            await adapter.SaveEntityAsync(courseEntity, true);
+            return Results.Ok();
+        }
+        catch (Exception ex)
+        {
+            return Results.BadRequest(ex.Message);
+        }
+    }
+});
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

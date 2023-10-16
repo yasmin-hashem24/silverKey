@@ -18,8 +18,14 @@ namespace MigrationTest.FactoryClasses
 	/// <summary>Factory class to produce DynamicQuery instances and EntityQuery instances</summary>
 	public partial class QueryFactory : QueryFactoryBase2
 	{
+		/// <summary>Creates and returns a new EntityQuery for the Course entity</summary>
+		public EntityQuery<CourseEntity> Course { get { return Create<CourseEntity>(); } }
+
 		/// <summary>Creates and returns a new EntityQuery for the Student entity</summary>
 		public EntityQuery<StudentEntity> Student { get { return Create<StudentEntity>(); } }
+
+		/// <summary>Creates and returns a new EntityQuery for the StudentCourse entity</summary>
+		public EntityQuery<StudentCourseEntity> StudentCourse { get { return Create<StudentCourseEntity>(); } }
 
 		/// <inheritdoc/>
 		protected override IElementCreatorCore CreateElementCreator() { return new ElementCreator(); }

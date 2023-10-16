@@ -17,7 +17,6 @@ namespace MigrationTest.FactoryClasses
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
 
-
 	/// <summary>general base class for the generated factories</summary>
 	[Serializable]
 	public partial class EntityFactoryBase2<TEntity> : EntityFactoryCore2
@@ -65,6 +64,16 @@ namespace MigrationTest.FactoryClasses
 		protected override Type ForEntityType { get { return typeof(TEntity); } }
 	}
 
+	/// <summary>Factory to create new, empty CourseEntity objects.</summary>
+	[Serializable]
+	public partial class CourseEntityFactory : EntityFactoryBase2<CourseEntity> 
+	{
+		/// <summary>CTor</summary>
+		public CourseEntityFactory() : base("CourseEntity", MigrationTest.EntityType.CourseEntity, false) { }
+		/// <inheritdoc/>
+		protected override IEntity2 CreateImpl(IEntityFields2 fields) { return new CourseEntity(fields); }
+	}
+
 	/// <summary>Factory to create new, empty StudentEntity objects.</summary>
 	[Serializable]
 	public partial class StudentEntityFactory : EntityFactoryBase2<StudentEntity> 
@@ -73,6 +82,16 @@ namespace MigrationTest.FactoryClasses
 		public StudentEntityFactory() : base("StudentEntity", MigrationTest.EntityType.StudentEntity, false) { }
 		/// <inheritdoc/>
 		protected override IEntity2 CreateImpl(IEntityFields2 fields) { return new StudentEntity(fields); }
+	}
+
+	/// <summary>Factory to create new, empty StudentCourseEntity objects.</summary>
+	[Serializable]
+	public partial class StudentCourseEntityFactory : EntityFactoryBase2<StudentCourseEntity> 
+	{
+		/// <summary>CTor</summary>
+		public StudentCourseEntityFactory() : base("StudentCourseEntity", MigrationTest.EntityType.StudentCourseEntity, false) { }
+		/// <inheritdoc/>
+		protected override IEntity2 CreateImpl(IEntityFields2 fields) { return new StudentCourseEntity(fields); }
 	}
 
 	/// <summary>Factory to create new, empty Entity objects based on the entity type specified. Uses  entity specific factory objects</summary>
@@ -122,8 +141,12 @@ namespace MigrationTest.FactoryClasses
 		{
 			switch(typeOfEntity)
 			{
+				case MigrationTest.EntityType.CourseEntity:
+					return new CourseEntityFactory();
 				case MigrationTest.EntityType.StudentEntity:
 					return new StudentEntityFactory();
+				case MigrationTest.EntityType.StudentCourseEntity:
+					return new StudentCourseEntityFactory();
 				default:
 					return null;
 			}

@@ -15,7 +15,6 @@ namespace MigrationTest.HelperClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-	
 
 	/// <summary>EntityCollection implementation which is used for backwards compatibility and for design time databinding.</summary>
 	[Serializable]
@@ -35,7 +34,6 @@ namespace MigrationTest.HelperClasses
 
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCollectionCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-
 	}
 
 	/// <summary>Generic entity collection class which replaces the original generated, non strongly typed EntityCollection variant.</summary>
@@ -61,6 +59,5 @@ namespace MigrationTest.HelperClasses
 
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCollectionCodeGeneric
 		// __LLBLGENPRO_USER_CODE_REGION_END
-
 	}
 }

@@ -10,6 +10,17 @@ using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace MigrationTest.HelperClasses
 {
+	/// <summary>Field Creation Class for entity CourseEntity</summary>
+	public partial class CourseFields
+	{
+		/// <summary>Creates a new CourseEntity.Id field instance</summary>
+		public static EntityField2 Id { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(CourseFieldIndex.Id); }}
+		/// <summary>Creates a new CourseEntity.Instructor field instance</summary>
+		public static EntityField2 Instructor { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(CourseFieldIndex.Instructor); }}
+		/// <summary>Creates a new CourseEntity.Name field instance</summary>
+		public static EntityField2 Name { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(CourseFieldIndex.Name); }}
+	}
+
 	/// <summary>Field Creation Class for entity StudentEntity</summary>
 	public partial class StudentFields
 	{
@@ -21,6 +32,19 @@ namespace MigrationTest.HelperClasses
 		public static EntityField2 Id { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(StudentFieldIndex.Id); }}
 		/// <summary>Creates a new StudentEntity.Name field instance</summary>
 		public static EntityField2 Name { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(StudentFieldIndex.Name); }}
+	}
+
+	/// <summary>Field Creation Class for entity StudentCourseEntity</summary>
+	public partial class StudentCourseFields
+	{
+		/// <summary>Creates a new StudentCourseEntity.CourseId field instance</summary>
+		public static EntityField2 CourseId { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(StudentCourseFieldIndex.CourseId); }}
+		/// <summary>Creates a new StudentCourseEntity.Id field instance</summary>
+		public static EntityField2 Id { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(StudentCourseFieldIndex.Id); }}
+		/// <summary>Creates a new StudentCourseEntity.RegistrationDate field instance</summary>
+		public static EntityField2 RegistrationDate { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(StudentCourseFieldIndex.RegistrationDate); }}
+		/// <summary>Creates a new StudentCourseEntity.StudentId field instance</summary>
+		public static EntityField2 StudentId { get { return ModelInfoProviderSingleton.GetInstance().CreateField2(StudentCourseFieldIndex.StudentId); }}
 	}
 	
 

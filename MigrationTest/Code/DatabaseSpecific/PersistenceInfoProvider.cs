@@ -36,7 +36,18 @@ namespace MigrationTest.DatabaseSpecific
 		private void Init()
 		{
 			this.InitClass();
+			InitCourseEntityMappings();
 			InitStudentEntityMappings();
+			InitStudentCourseEntityMappings();
+		}
+
+		/// <summary>Inits CourseEntity's mappings</summary>
+		private void InitCourseEntityMappings()
+		{
+			this.AddElementMapping("CourseEntity", @"MigrationTest", @"public", "course", 3, 0);
+			this.AddElementFieldMapping("CourseEntity", "Id", "Id", false, "Integer", 0, 10, 0, true, "public.course_Id_seq", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("CourseEntity", "Instructor", "instructor", false, "Varchar", 255, 0, 0, false, "", null, typeof(System.String), 1);
+			this.AddElementFieldMapping("CourseEntity", "Name", "name", false, "Varchar", 255, 0, 0, false, "", null, typeof(System.String), 2);
 		}
 
 		/// <summary>Inits StudentEntity's mappings</summary>
@@ -47,6 +58,16 @@ namespace MigrationTest.DatabaseSpecific
 			this.AddElementFieldMapping("StudentEntity", "Grade", "grade", false, "Varchar", 255, 0, 0, false, "", null, typeof(System.String), 1);
 			this.AddElementFieldMapping("StudentEntity", "Id", "Id", false, "Integer", 0, 10, 0, true, "public.student_Id_seq", null, typeof(System.Int32), 2);
 			this.AddElementFieldMapping("StudentEntity", "Name", "name", false, "Varchar", 255, 0, 0, false, "", null, typeof(System.String), 3);
+		}
+
+		/// <summary>Inits StudentCourseEntity's mappings</summary>
+		private void InitStudentCourseEntityMappings()
+		{
+			this.AddElementMapping("StudentCourseEntity", @"MigrationTest", @"public", "student_course", 4, 0);
+			this.AddElementFieldMapping("StudentCourseEntity", "CourseId", "courseId", false, "Integer", 0, 10, 0, false, "", null, typeof(System.Int32), 0);
+			this.AddElementFieldMapping("StudentCourseEntity", "Id", "Id", false, "Integer", 0, 10, 0, true, "public.student_course_Id_seq", null, typeof(System.Int32), 1);
+			this.AddElementFieldMapping("StudentCourseEntity", "RegistrationDate", "registrationDate", false, "Timestamp", 0, 0, 0, false, "", null, typeof(System.DateTime), 2);
+			this.AddElementFieldMapping("StudentCourseEntity", "StudentId", "studentId", false, "Integer", 0, 10, 0, false, "", null, typeof(System.Int32), 3);
 		}
 
 	}

@@ -29,7 +29,7 @@ internal class Program
            .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
 
         IConfigurationRoot configuration = builder.Build();
-        var connectionString = configuration["connectionString"];
+        var connectionString = "Host=localhost;Port=5432;Database=MigrationTest;Username=postgres;Password=passpost;";
 
         return new ServiceCollection()
             // Add common FluentMigrator services

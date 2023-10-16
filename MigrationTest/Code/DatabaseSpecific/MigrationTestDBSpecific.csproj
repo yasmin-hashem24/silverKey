@@ -48,22 +48,22 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs">
-      <GeneratedBy>LLBLGen Pro</GeneratedBy>
-    </Compile>
-    <Compile Include="PersistenceInfoProvider.cs">
+    <Compile Include="ActionProcedures.cs">
       <GeneratedBy>LLBLGen Pro</GeneratedBy>
     </Compile>
     <None Include="App.config">
       <GeneratedBy>LLBLGen Pro</GeneratedBy>
     </None>
-    <Compile Include="ActionProcedures.cs">
-      <GeneratedBy>LLBLGen Pro</GeneratedBy>
-    </Compile>
-    <Compile Include="RetrievalProcedures.cs">
+    <Compile Include="AssemblyInfo.cs">
       <GeneratedBy>LLBLGen Pro</GeneratedBy>
     </Compile>
     <Compile Include="DataAccessAdapter.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+    <Compile Include="PersistenceInfoProvider.cs">
+      <GeneratedBy>LLBLGen Pro</GeneratedBy>
+    </Compile>
+    <Compile Include="RetrievalProcedures.cs">
       <GeneratedBy>LLBLGen Pro</GeneratedBy>
     </Compile>
   </ItemGroup>

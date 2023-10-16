@@ -14,15 +14,18 @@ namespace MigrationTest
 	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
 	public enum EntityType
 	{
+		///<summary>Course</summary>
+		CourseEntity,
 		///<summary>Student</summary>
-		StudentEntity
+		StudentEntity,
+		///<summary>StudentCourse</summary>
+		StudentCourseEntity
 	}
 
 
 
 	// __LLBLGENPRO_USER_CODE_REGION_START CustomUserConstants
 	// __LLBLGENPRO_USER_CODE_REGION_END
-
 
 }
 
