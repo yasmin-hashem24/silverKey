@@ -12,9 +12,9 @@ public class _001_CreateCourseTable : AutoReversingMigration
     public override void Up()
     {
         Create.Table("course")
-            .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-            .WithColumn("name").AsString(255).NotNullable().WithDefaultValue("Anonymous")
-            .WithColumn("instructor").AsString(255).NotNullable().WithDefaultValue("Anonymous");
+            .WithColumn("id").AsInt32().NotNullable().PrimaryKey().Identity()
+            .WithColumn("name").AsString(255).NotNullable()
+            .WithColumn("instructor").AsString(255).NotNullable();
     }
 
 }

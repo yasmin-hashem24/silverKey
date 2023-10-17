@@ -199,7 +199,7 @@
         <Sequence Name="SystemIdentity" />
       </SystemSequences>
       <Catalogs>
-        <Catalog Name="MigrationTest">
+        <Catalog Name="SchoolDatabase">
           <Schemas>
             <Schema Name="public" SyncSource="2" LastSyncWithDatabase="2023-10-15T18:45:37.445945Z">
               <Sequences>
@@ -211,7 +211,7 @@
                 <Table Name="course">
                   <PkConstraintName Name="PK_course" />
                   <Fields>
-                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" HasDefaultValue="true" DefaultValue="nextval('&quot;course_Id_seq&quot;'::regclass)" DefaultSequence="MigrationTest:public:course_Id_seq" DbType="9" Precision="10" />
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" HasDefaultValue="true" DefaultValue="nextval('&quot;course_Id_seq&quot;'::regclass)" DefaultSequence="SchoolDatabase:public:course_Id_seq" DbType="9" Precision="10" />
                     <Field Name="name" Ordinal="2" HasDefaultValue="true" DefaultValue="'Anonymous'::character varying" DbType="24" Length="255" />
                     <Field Name="instructor" Ordinal="3" HasDefaultValue="true" DefaultValue="'Anonymous'::character varying" DbType="24" Length="255" />
                   </Fields>
@@ -219,7 +219,7 @@
                 <Table Name="student">
                   <PkConstraintName Name="PK_student" />
                   <Fields>
-                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" HasDefaultValue="true" DefaultValue="nextval('&quot;student_Id_seq&quot;'::regclass)" DefaultSequence="MigrationTest:public:student_Id_seq" DbType="9" Precision="10" />
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" HasDefaultValue="true" DefaultValue="nextval('&quot;student_Id_seq&quot;'::regclass)" DefaultSequence="SchoolDatabase:public:student_Id_seq" DbType="9" Precision="10" />
                     <Field Name="email" Ordinal="2" HasDefaultValue="true" DefaultValue="'Anonymous'::character varying" DbType="24" Length="255" />
                     <Field Name="name" Ordinal="3" HasDefaultValue="true" DefaultValue="'Anonymous'::character varying" DbType="24" Length="255" />
                     <Field Name="grade" Ordinal="4" HasDefaultValue="true" DefaultValue="'Anonymous'::character varying" DbType="24" Length="255" />
@@ -228,7 +228,7 @@
                 <Table Name="student_course">
                   <PkConstraintName Name="PK_student_course" />
                   <Fields>
-                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" HasDefaultValue="true" DefaultValue="nextval('&quot;student_course_Id_seq&quot;'::regclass)" DefaultSequence="MigrationTest:public:student_course_Id_seq" DbType="9" Precision="10" />
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" HasDefaultValue="true" DefaultValue="nextval('&quot;student_course_Id_seq&quot;'::regclass)" DefaultSequence="SchoolDatabase:public:student_course_Id_seq" DbType="9" Precision="10" />
                     <Field Name="studentId" Ordinal="2" DbType="9" Precision="10" />
                     <Field Name="courseId" Ordinal="3" DbType="9" Precision="10" />
                     <Field Name="registrationDate" Ordinal="4" HasDefaultValue="true" DefaultValue="now()" DbType="22" />
@@ -256,25 +256,25 @@
   <MappingStores>
     <MappingStore Type="88EBFD8C-CBDD-4452-88AF-1C99E41A123F">
       <EntityMappings>
-        <EntityMapping EntityName=":Course" TargetName="MigrationTest:public:course">
+        <EntityMapping EntityName=":Course" TargetName="SchoolDatabase:public:course">
           <FieldMappings>
-            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="MigrationTest:public:course_Id_seq" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SchoolDatabase:public:course_Id_seq" />
             <FieldMapping FieldName="Instructor" TargetFieldName="instructor" />
             <FieldMapping FieldName="Name" TargetFieldName="name" />
           </FieldMappings>
         </EntityMapping>
-        <EntityMapping EntityName=":Student" TargetName="MigrationTest:public:student">
+        <EntityMapping EntityName=":Student" TargetName="SchoolDatabase:public:student">
           <FieldMappings>
             <FieldMapping FieldName="Email" TargetFieldName="email" />
             <FieldMapping FieldName="Grade" TargetFieldName="grade" />
-            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="MigrationTest:public:student_Id_seq" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SchoolDatabase:public:student_Id_seq" />
             <FieldMapping FieldName="Name" TargetFieldName="name" />
           </FieldMappings>
         </EntityMapping>
-        <EntityMapping EntityName=":StudentCourse" TargetName="MigrationTest:public:student_course">
+        <EntityMapping EntityName=":StudentCourse" TargetName="SchoolDatabase:public:student_course">
           <FieldMappings>
             <FieldMapping FieldName="CourseId" TargetFieldName="courseId" />
-            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="MigrationTest:public:student_course_Id_seq" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SchoolDatabase:public:student_course_Id_seq" />
             <FieldMapping FieldName="RegistrationDate" TargetFieldName="registrationDate" />
             <FieldMapping FieldName="StudentId" TargetFieldName="studentId" />
           </FieldMappings>

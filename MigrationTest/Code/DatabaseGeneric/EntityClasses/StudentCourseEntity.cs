@@ -20,19 +20,17 @@ namespace MigrationTest.EntityClasses
 {
 	// __LLBLGENPRO_USER_CODE_REGION_START AdditionalNamespaces
 	// __LLBLGENPRO_USER_CODE_REGION_END
-
 	/// <summary>Entity class which represents the entity 'StudentCourse'.<br/><br/></summary>
 	[Serializable]
 	public partial class StudentCourseEntity : CommonEntityBase
 		// __LLBLGENPRO_USER_CODE_REGION_START AdditionalInterfaces
-		// __LLBLGENPRO_USER_CODE_REGION_END
-	
+		// __LLBLGENPRO_USER_CODE_REGION_END	
 	{
 		private CourseEntity _course;
 		private StudentEntity _student;
+
 		// __LLBLGENPRO_USER_CODE_REGION_START PrivateMembers
 		// __LLBLGENPRO_USER_CODE_REGION_END
-
 		private static StudentCourseEntityStaticMetaData _staticMetaData = new StudentCourseEntityStaticMetaData();
 		private static StudentCourseRelations _relationsFactory = new StudentCourseRelations();
 
@@ -122,7 +120,6 @@ namespace MigrationTest.EntityClasses
 			PerformDependencyInjection();
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassMembers
 			// __LLBLGENPRO_USER_CODE_REGION_END
-
 			OnInitClassMembersComplete();
 		}
 
@@ -137,7 +134,6 @@ namespace MigrationTest.EntityClasses
 			InitClassMembers();
 			// __LLBLGENPRO_USER_CODE_REGION_START InitClassEmpty
 			// __LLBLGENPRO_USER_CODE_REGION_END
-
 
 			OnInitialized();
 		}
@@ -199,9 +195,9 @@ namespace MigrationTest.EntityClasses
 			get { return _student; }
 			set { SetSingleRelatedEntityNavigator(value, "Student"); }
 		}
+
 		// __LLBLGENPRO_USER_CODE_REGION_START CustomEntityCode
 		// __LLBLGENPRO_USER_CODE_REGION_END
-
 
 	}
 }

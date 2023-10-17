@@ -12,10 +12,10 @@ public class _001_CreateStudentCourseTable : AutoReversingMigration
     public override void Up()
     {
         Create.Table("student_course")
-    .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
-    .WithColumn("studentId").AsInt32().NotNullable().ForeignKey("student", "Id")
-    .WithColumn("courseId").AsInt32().NotNullable().ForeignKey("course", "Id")
-    .WithColumn("registrationDate").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentDateTime);
+    .WithColumn("id").AsInt32().NotNullable().PrimaryKey().Identity()
+    .WithColumn("student_id").AsInt32().NotNullable().ForeignKey("student", "id")
+    .WithColumn("course_id").AsInt32().NotNullable().ForeignKey("course", "id")
+    .WithColumn("registration_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentDateTime);
    
     }
      
